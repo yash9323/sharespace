@@ -20,6 +20,10 @@
         <%= lat %><br>
         <%= lon %><br>
     </div>
+    <h1>Space Hosted by :<%=user_data.first_name%> <%=user_data.last_name%></h1>
+    Owner Contact :<%=user_data.email%> or <%=user_data.phone_no%>
+    <br>
+    Owner Rating :<%=user_data.rating%><br>
     <% if(allow_reserve){ %>
         <a href="/book/<%=_id%>">Reserve Listing</a>
     <% } %> 

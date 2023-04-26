@@ -41,9 +41,10 @@ initializepassport(
     email => users.find(user => user.email === email),
     id => users.find(user => user.id === id)
 )
-app.get('/listing/:id',checkauthenticated,async (req,res)=>{
-    let d = await get_listing(req.params.id)
-    console.log(d,req.user._id)
+app.get('/getlisting/:id',checkauthenticated,async (req,res)=>{
+    let d = await get_listing(new ObjectId(req.params.id.trim()))
+    let user_data = await get_user_byid(d.user_id)
+    d.user_data = user_data
     if (req.user._id.toString() === d.user_id.toString()){
         d.allow_reserve = false
     }
@@ -68,10 +69,8 @@ app.get('/mylistings',checkauthenticated,async (req,res)=>{
                 bookedby_user_id)
             u.booking_details = booking_details
             u.user_details = user_details
-            console.log(booking_details)
         }
     }
-    console.log(user_listings)
     res.render("mylistings.ejs",{data:user_listings})
 })
 
@@ -162,10 +161,9 @@ app.get('/login', checknotauthenticated,(req, res) => {
 app.get('/home', checkauthenticated,async (req, res) => {
     let data = await get_listings()
     for (let l of data){
-        let s = "/listing/"+ l._id.toString()
+        let s = "/getlisting/"+ l._id.toString()
         l.link = s
     }
-    console.log(data)
     res.render('home.ejs',{data:data,fname : req.user.first_name,lname : req.user.last_name})
 })
 
