@@ -1,0 +1,21 @@
+<h1>My listings:</h1>
+<%for (let listing of data){%>
+    <div class="mylisting" style="border: 4px solid black;margin-top: 10px;">
+        <h1>
+            <%= listing.address %>
+        </h1>
+        <%if(listing.available === false){ %>
+            <h1>
+                Booking Id - <%= listing.booking_details._id.toString() %>
+            </h1>
+            <h1>
+                Booked Till: <%= listing.booking_details.end_date %>
+            </h1>
+            <h1>
+                Payment Received using :<%= listing.booking_details.payment %>
+            </h1>
+            <h1>booked by User <%=listing.user_details.first_name%> <%=listing.user_details.last_name%></h1>
+            <h1>Contact customer on <%=listing.user_details.email%> or <%=listing.user_details.phone_no%></h1>
+            <%}%>
+    </div>
+    <%}%>

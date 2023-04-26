@@ -1,0 +1,28 @@
+<h1>Share Space</h1>
+<h1>Register</h1>
+<!-- do server side input checking create script and check all inputs and only then pass to server  -->
+<form action="/register" method="POST">
+    <div>
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="fname" required>
+    </div>
+    <div>
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lname" required>
+    </div>
+    <div>
+        <label for="email">E Mail</label>
+        <input type="text" id="email" name="email" required>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="text" id="password" name="password" required>
+    </div>
+    <div>
+        <label for="phone_no">Phone NO</label>
+        <input type="text" id="phone_no" name="phone_no" required>
+    </div>
+    <button type="submit">Register</button>
+</form>
+Already a User =>
+<a href="/login">Login</a>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing</title>
+</head>
+<body>
+    <h1>Listing details</h1>
+    <div class="view_listing">
+        pictures<br>
+        <%= address %><br>
+        <%= description %><br>
+        <%= length %><br>
+        <%= width %><br>
+        <%= height %><br>
+        <%= area %><br>
+        <%= volume %><br>
+        <%= lat %><br>
+        <%= lon %><br>
+    </div>
+    <% if(allow_reserve){ %>
+        <a href="/book/<%=_id%>">Reserve Listing</a>
+    <% } %> 
+</body>
+</html>

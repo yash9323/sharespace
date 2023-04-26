@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book</title>
+</head>
+
+<body>
+    You are booking the Space at <%= address %>
+        <br>
+        <%= description %>
+            <br>
+            <br>
+            <form action="/bookbooking/<%=_id%>" method="POST">
+                <label for="start_date">From</label>
+                <input type="date" id="start_date" name="start_date">
+                <br>
+                <br>
+                <label for="end_date">To</label>
+                <input type="date" id="end_date" name="end_date" max="<%=available_till%>">
+                <br><br>
+                <label for="payment">Choose a Payment Method:</label>
+                <select name="payment" id="payment">
+                    <option value="Card">Card</option>
+                    <option value="Venmo">Venmo</option>
+                    <option value="Zelle">Zelle</option>
+                    <option value="Cash">Cash</option>
+                </select>
+                <br>
+                <br>
+                <button type="submit">Reserve Space</button>
+            </form>
+</body>
+
+</html>
