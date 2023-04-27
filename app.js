@@ -18,7 +18,8 @@ import get_booking from './data_handler/get_booking.js'
 import get_bookings_userid from './data_handler/get_bookings_userid.js'
 import get_listings_userid from './data_handler/get_listings_userid.js'
 import get_bookings_owned from './data_handler/get_bookings_owned.js'
-import get_user_byid from './data_handler/get_user_byid.js'
+import get_user_byid from './data_handler/get_user_byid.js';
+import modify_listing from './data_handler/modify_listing.js';
 
 dotenv.config();
 
@@ -60,9 +61,28 @@ app.get('/book/:id',checkauthenticated,async (req,res)=>{
     res.render("book_listing.ejs",d)
 })
 
-// app.get('/modifylisting/:id',checkauthenticated,(req,res)=>{
-    
-// })
+app.get('/modifylisting/:id',checkauthenticated,async (req,res)=>{
+    let d = await get_listing(new ObjectId(req.params.id.trim()))
+    res.render("modify_listing.ejs",d)
+})
+
+app.post('/modifylisting/:id',checkauthenticated,async (req,res)=>{
+    let new_details = {
+        id : new ObjectId(req.params.id.trim()),
+        address: req.body.address,
+        description: req.body.description,
+        price: req.body.price,
+        length: req.body.length,
+        width: req.body.width,
+        height :req.body.height,
+        area: req.body.area,
+        volume: req.body.volume,
+        available_till : req.body.available_till
+    }
+    let success = await modify_listing(new_details)
+
+    res.redirect('/getlisting/'+success.value._id.toString())
+})
 
 app.get('/mylistings',checkauthenticated,async (req,res)=>{
     let user_listings = await get_listings_userid(req.user._id)
