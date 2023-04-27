@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/js/m_listing.js" defer></script>
+    <link rel="stylesheet" href="/css/modify.css">
     <title>Modify</title>
 </head>
 <body class="body">
@@ -56,6 +57,14 @@
             <br>
             <button type="submit">Create</button>
         </form>
+        <div id='confirmdelete'>
+            <span id='popupMessage'>Are you sure you want to delete your Space?</span><br/>
+            <form method="POST" action="/deletelisting/<%= _id.toString() %>">
+                <button id='confirm' type="submit">Confirm</button>
+            </form>
+            <button id='cancel' onclick='canceldelete()'>Cancel</button>
+          </div>
+        <button id="delete_space" onclick="displaypopup()">Delete Space</button>
         <% if(available === false){ %>
             <h1>These changes will take effect only after the exitsting booking expires </h1>
             <%}%>

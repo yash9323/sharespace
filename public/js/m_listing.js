@@ -17,3 +17,14 @@ function calculatevolume(){
 
 window.onload = calculatearea()
 window.onload = calculatevolume()
+
+let popupcontainer = document.getElementById('confirmdelete')
+let deletebutton = document.getElementById('delete_space');
+function displaypopup(){
+  popupcontainer.style.display = 'Block'
+  deletebutton.style.display = 'None'
+}
+function canceldelete(){
+  popupcontainer.style.display = 'None'
+  deletebutton.style.display = 'Block'
+}

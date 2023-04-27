@@ -20,6 +20,7 @@ import get_listings_userid from './data_handler/get_listings_userid.js'
 import get_bookings_owned from './data_handler/get_bookings_owned.js'
 import get_user_byid from './data_handler/get_user_byid.js';
 import modify_listing from './data_handler/modify_listing.js';
+import delete_listing from './data_handler/delete_listing.js';
 
 dotenv.config();
 
@@ -64,6 +65,12 @@ app.get('/book/:id',checkauthenticated,async (req,res)=>{
 app.get('/modifylisting/:id',checkauthenticated,async (req,res)=>{
     let d = await get_listing(new ObjectId(req.params.id.trim()))
     res.render("modify_listing.ejs",d)
+})
+
+app.post('/deletelisting/:id',checkauthenticated,async (req,res)=>{
+    // add check only owner of listing can delete listing
+    let confirm_delete = await delete_listing(new ObjectId(req.params.id.trim()))
+    return res.redirect('/mylistings')
 })
 
 app.post('/modifylisting/:id',checkauthenticated,async (req,res)=>{
