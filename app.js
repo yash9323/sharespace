@@ -56,9 +56,13 @@ app.get('/getlisting/:id',checkauthenticated,async (req,res)=>{
 })
 
 app.get('/book/:id',checkauthenticated,async (req,res)=>{
-    let d = await get_listing(req.params.id)
+    let d = await get_listing(new ObjectId(req.params.id.trim()))
     res.render("book_listing.ejs",d)
 })
+
+// app.get('/modifylisting/:id',checkauthenticated,(req,res)=>{
+    
+// })
 
 app.get('/mylistings',checkauthenticated,async (req,res)=>{
     let user_listings = await get_listings_userid(req.user._id)
@@ -92,7 +96,7 @@ app.get('/success/:id',checkauthenticated,async (req,res)=>{
 app.post('/bookbooking/:id',checkauthenticated,async (req,res)=>{
     //allow booking available false other return error
     let obb = new ObjectId(req.params.id)
-    let d = await get_listing(req.params.id)
+    let d = await get_listing(obb)
     let o = {
         bookedby_user_id: req.user._id,
         listing_id : obb,
