@@ -137,7 +137,7 @@ app.post('/register', checknotauthenticated,async (req, res) => {
 })
 
 app.get("/newlisting",checkauthenticated,(req,res)=>{
-    res.render("newlisting.ejs")
+    res.render("newlisting.ejs");
 })
 
 app.post("/createlisting",checkauthenticated,async(req,res)=>{
