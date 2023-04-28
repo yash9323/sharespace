@@ -21,8 +21,28 @@ import get_bookings_owned from './data_handler/get_bookings_owned.js'
 import get_user_byid from './data_handler/get_user_byid.js';
 import modify_listing from './data_handler/modify_listing.js';
 import delete_listing from './data_handler/delete_listing.js';
+import multer from 'multer';
 
 dotenv.config();
+
+const multerStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/images/')
+    },
+    filename: (req, file, cb) => {
+        const ext = file.mimetype.split("/")[1];
+        cb(null, `${file.fieldname}-${Date.now()}.${ext}`)
+    }
+});
+
+const multerFilter = (req, file, cb) => {
+    const fileTypes = ['jpg', 'jpeg', 'png'];
+    const currFiletype = file.mimetype.split('/')[1];
+    if (fileTypes.includes(currFiletype)) cb(null, true);
+    else cb(new Error('Please upload only a JPG or PNG file'), false);
+};
+
+const upload = multer( {storage: multerStorage, fileFilter: multerFilter });
 
 const app = express();
 app.set('view-engine', 'ejs');
@@ -43,6 +63,7 @@ initializepassport(
     email => users.find(user => user.email === email),
     id => users.find(user => user.id === id)
 )
+
 app.get('/getlisting/:id',checkauthenticated,async (req,res)=>{
     let d = await get_listing(new ObjectId(req.params.id.trim()))
     let user_data = await get_user_byid(d.user_id)
@@ -51,7 +72,6 @@ app.get('/getlisting/:id',checkauthenticated,async (req,res)=>{
         d.allow_reserve = false
     }
     else{
-        // fetch user details to show customer
         d.allow_reserve = true
     }
     res.render("view_listing.ejs",d)
@@ -171,9 +191,10 @@ app.get("/newlisting",checkauthenticated,(req,res)=>{
     res.render("newlisting.ejs");
 })
 
-app.post("/createlisting",checkauthenticated,async(req,res)=>{
+app.post("/createlisting",checkauthenticated,upload.single('image'),async(req,res)=>{
     // do input checking here 
     let new_data = req.body 
+    new_data.picture = req.file.filename
     new_data.user_id = req.user._id
     new_data.available = true 
     try{

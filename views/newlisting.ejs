@@ -3,7 +3,7 @@
 <body class="body">
     <div class="projectbox">
         <h1>Create New Listing </h1>
-        <form action="/createlisting" method="POST">
+        <form action="/createlisting" method="POST" enctype="multipart/form-data">
             <div style="width: 80%; padding: 10px;">
                 <label for="address">Listing Address</label>
                 <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
@@ -49,6 +49,7 @@
             <br>
             Your Current Location : <span id="location"></span>
             <br>
+            <input type="file" name="image" id="image">
             <button type="submit">Create</button>
         </form>
     </div>

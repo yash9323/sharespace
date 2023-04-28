@@ -3,6 +3,9 @@
 <%for (let listing of data){%>
     <a href="/modifylisting/<%= listing._id.toString()%>" style="text-decoration: none;">
         <div class="mylisting" style="border: 4px solid black;margin-top: 10px;">
+            <div class="card-img" style="width: 200px; height: 200px;">
+                <img src="/images/<%= listing.picture %>" alt="image" width="100%" height="100%">
+            </div>
             <h1>
                 <%= listing.address %>
             </h1>

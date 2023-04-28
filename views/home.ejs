@@ -14,7 +14,9 @@ welcome <%= fname %>
                 <%if(listing.available){%>
                     <a href=" <%= listing.link %>" style="text-decoration: none;">
                         <div class="card">
-                            <div class="card-img"></div>
+                            <div class="card-img">
+                                <img src="/images/<%= listing.picture %>" alt="image" width="100%" height="100%">
+                            </div>
                             <div class="card-info">
                                 <p class="text-title">
                                     <%=listing.address%>
