@@ -1,0 +1,78 @@
+html{
+    height: 100%;
+}
+body{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    background: linear-gradient(black,blue);
+}
+.logo{
+    color: white;
+    text-align: center;
+    padding-top: 40px;
+    transition-duration: 0.5s;
+}
+.login-container{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 450px;
+    padding: 40px;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    box-shadow: 0 20px 25px black;
+    border-radius: 14px;
+}
+.login-container h1{
+    margin: 0 0 40px;
+    padding: 0;
+    color: white;
+    text-align: center;
+}
+.login-container a{
+    margin-top: 20px;
+    color: white;
+}
+.input-container{
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.input-container input{
+    width: 100%;
+    padding: 20px 0;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+    background: transparent;
+}
+::placeholder{
+    color: white;
+    opacity: 0.4;
+}
+.input-container label{
+    padding:12px 0;
+    font-size: 16px;
+    color: white;
+    pointer-events: none;
+    transition: 2s;
+}
+.login-container button{
+    margin-top: 20px;
+    width: 150px;
+    height: 40px;
+    border-radius: 12px;
+    border: 3px solid black;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+button {
+    transition-duration: 0.5s;
+}
+.login-container button:hover{
+    background-color: black;
+    color: white;
+}
