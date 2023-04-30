@@ -70,11 +70,14 @@ initializepassport(
 )
 
 app.post("/postcomment/:id",checkauthenticated,async (req,res)=>{
+    let user_data = await get_user_byid(req.user._id)
     let ob = {
         comment : req.body.comment,
         time: new Date(),
         listing_id : new ObjectId(req.params.id.trim()),
-        madeby : req.user._id
+        madeby : req.user._id,
+        fname : user_data.first_name,
+        lname : user_data.last_name,
     }
     let postcomment = await post_comment_to_listing(ob)
     res.json("comment posted")
@@ -237,13 +240,17 @@ app.get('/login', checknotauthenticated,(req, res) => {
     res.render('login.ejs')
 })
 
-app.get('/home', checkauthenticated,async (req, res) => {
+app.get('/getalllistings',checkauthenticated,async (req,res)=>{
     let data = await get_listings()
     for (let l of data){
         let s = "/vlisting/"+ l._id.toString()
         l.link = s
     }
-    res.render('home.ejs',{data:data,fname : req.user.first_name,lname : req.user.last_name})
+    res.json(data)
+})
+
+app.get('/home', checkauthenticated,async (req, res) => {
+    res.render('home.ejs',{fname : req.user.first_name,lname : req.user.last_name})
 })
 
 app.post('/login',checknotauthenticated,passport.authenticate('login', {

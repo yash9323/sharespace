@@ -28,3 +28,30 @@
     //         u.user_details = user_details
     //     }
     // }
+
+    <div class="listings">
+            <%for(let listing of data){%>
+                <%if(listing.available){%>
+                    <a href=" <%= listing.link %>" style="text-decoration: none;">
+                        <div class="card">
+                            <div class="card-img">
+                                <img src="/images/<%= listing.picture %>" alt="image" width="100%" height="100%">
+                            </div>
+                            <div class="card-info">
+                                <p class="text-title">
+                                    <%=listing.address%>
+                                </p>
+                                <p class="text-body">
+                                    <%=listing.description%>
+                                </p>
+                                <p class="text-body">area available: <%=listing.area%>
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <span class="text-title">$<%=listing.price%></span>
+                            </div>
+                        </div>
+                    </a>    
+                <%}%>
+                <%}%>
+        </div>

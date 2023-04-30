@@ -15,7 +15,8 @@ function loadcomments() {
                     `
                     <div>
                         <h2>${comment.comment}</h2>
-                        <p>Desc : ${comment.time}</p>
+                        <p>Time :${comment.time}</p>
+                        <p>Comment Made By user ${comment.fname} ${comment.lname}
                     </div>
             `;
             commentContainer.appendChild(commenttDiv);
