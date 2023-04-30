@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/booklisting.js" defer></script>
     <title>Book</title>
 </head>
-
 <body>
     You are booking the Space at <%= address %>
         <br>
@@ -16,7 +16,7 @@
             <br>
             <form action="/bookbooking/<%=_id%>" method="POST">
                 <label for="start_date">From</label>
-                <input type="date" id="start_date" name="start_date">
+                <input type="date" id="start_date" name="start_date" max="<%=available_till%>">
                 <br>
                 <br>
                 <label for="end_date">To</label>

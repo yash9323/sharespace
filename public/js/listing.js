@@ -25,6 +25,27 @@ navigator.geolocation.getCurrentPosition(async (position)=>{
     alert(error)
 })
 
+let l = document.getElementById("available_till")
+let today = new Date()
+let day = today.getDate() 
+let month = today.getMonth() + 1
+let year = today.getFullYear()
+if(day<10){
+        day='0'+day
+    } 
+if(month<10){
+    month='0'+month
+}
+let t = year+'-'+month+'-'+day;
+l.setAttribute("min",t)
+// let d = today.getDate() + 10
+// if(d<10){
+//     d='0'+d
+// } 
+// let tt = year+'-'+month+'-'+d;
+// console.log(tt)
+// l.setAttribute("max",tt)
+
 // async function myMap(lat,lon){
 //     const { AdvancedMarkerView } = await google.maps.importLibrary("marker");
 //     var mapProp= {

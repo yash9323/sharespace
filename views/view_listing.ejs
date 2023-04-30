@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <title>Listing</title>
 </head>
 <body>
@@ -31,9 +32,13 @@
     <% if(allow_reserve){ %>
         <a href="/book/<%=_id%>">Reserve Listing</a>
     <% } %> 
-    <h1>
-        view some faq's
-    </h1>
+    <div id="comments"></div>
+    <div class="makecomment">
+        <input type="text" id="comment" placeholder="enter your comment here">
+        <button type="submit" onclick="postcomment()">Post Comment</button>
+    </div>
     <h1>visualize location on map</h1>
+    <input type="hidden" id="id" value="<%=_id%>">
+    <script src="/js/comments.js"></script>
 </body>
 </html>

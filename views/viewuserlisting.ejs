@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing</title>
+</head>
+
+<body>
+    <a href="/home">Go to home</a>
+    <h1>Listing details</h1>
+    <div class="view_listing">
+        <div class="card-img" style="width: 200px; height: 200px;">
+            <img src="/images/<%= picture %>" alt="image" width="100%" height="100%">
+        </div>
+        <%= price %>dollar / month<br>
+            <%= address %><br>
+                <%= description %><br>
+                    <%= length %><br>
+                        <%= width %><br>
+                            <%= height %><br>
+                                <%= area %><br>
+                                    <%= volume %><br>
+                                        <%= lat %><br>
+                                            <%= lon %><br>
+                                                <br>
+    </div>
+    <h1>visualize location on map</h1>
+    <h1>show booking history</h1>
+    <% let allow_available=true; %>
+        <% for (let booking of bookings){%>
+            <div class="booking">
+                <p>Booking Id - <%= booking._id.toString() %>
+                </p>
+                <p>From : <%= booking.start_date %>
+                </p>
+                <p>Booked Till: <%= booking.end_date %>
+                </p>
+                <p>Payment Received using :<%= booking.payment %>
+                </p>
+            </div>
+            <% if (booking.status === "ongoing" ){ %>
+                <% allow_available=false %>
+        <%}%>
+    <%}%>
+    </div>
+    <%if (allow_available === true){ %>
+        <h3><a href="/modifylisting/<%= _id.toString()%>">Want to make some changes?</a></h3>
+        <% if(available === false){ %>
+            <form action="/makeavailable/<%= _id.toString()%>" method="POST">
+                <button type="submit">Make it available</button>
+            </form>
+        <%}%>
+    <%}%>
+</body>
+
+</html>

@@ -8,5 +8,8 @@ spaces you can use:
         <h3>Payment Made by <%=l.payment%></h3> 
         <h1>Listing details</h1>
         <h3>Address of Space: <%= l.listing_details.address%></h3>
+        <%if(l.status === 'expired'){%>
+          <h1>ALLOW USER TO MAKE A REVIEW</h1> 
+        <%}%>
     </div>
 <%}%>

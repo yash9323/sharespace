@@ -22,6 +22,11 @@ import get_user_byid from './data_handler/get_user_byid.js';
 import modify_listing from './data_handler/modify_listing.js';
 import delete_listing from './data_handler/delete_listing.js';
 import multer from 'multer';
+import get_all_bookings_on_listingid from './data_handler/get_all_bookings_on_listingid.js'
+import change_available_to_true from './data_handler/change_available_to_true.js'
+import get_bookings_sorted from './data_handler/get_bookings_sorted.js'
+import get_comments_for_listing from './data_handler/get_comments_for_listing.js'
+import post_comment_to_listing from './data_handler/post_comment_to_listing.js'
 
 dotenv.config();
 
@@ -64,7 +69,18 @@ initializepassport(
     id => users.find(user => user.id === id)
 )
 
-app.get('/getlisting/:id',checkauthenticated,async (req,res)=>{
+app.post("/postcomment/:id",checkauthenticated,async (req,res)=>{
+    let ob = {
+        comment : req.body.comment,
+        time: new Date(),
+        listing_id : new ObjectId(req.params.id.trim()),
+        madeby : req.user._id
+    }
+    let postcomment = await post_comment_to_listing(ob)
+    res.json("comment posted")
+})
+
+app.get('/vlisting/:id',checkauthenticated,async (req,res)=>{
     let d = await get_listing(new ObjectId(req.params.id.trim()))
     let user_data = await get_user_byid(d.user_id)
     d.user_data = user_data
@@ -107,31 +123,40 @@ app.post('/modifylisting/:id',checkauthenticated,async (req,res)=>{
         available_till : req.body.available_till
     }
     let success = await modify_listing(new_details)
+    res.redirect('/viewlisting/'+success.value._id.toString())
+})
 
-    res.redirect('/getlisting/'+success.value._id.toString())
+app.get('/viewlisting/:id',checkauthenticated,async (req,res)=>{
+    let d = await get_listing(new ObjectId(req.params.id.trim()))
+    let all_bookings = await get_all_bookings_on_listingid(d._id)
+    d.bookings = all_bookings
+    res.render("viewuserlisting.ejs",d)
+})
+
+app.post('/makeavailable/:id',checkauthenticated,async (req,res)=>{
+    let change = await change_available_to_true(new ObjectId(req.params.id.trim()))
+    res.redirect('/home')
 })
 
 app.get('/mylistings',checkauthenticated,async (req,res)=>{
     let user_listings = await get_listings_userid(req.user._id)
-    for(let u of user_listings){
-        if (u.available === false){
-            let booking_details = await get_bookings_owned(u._id)
-            let user_details = await get_user_byid(booking_details.
-                bookedby_user_id)
-            u.booking_details = booking_details
-            u.user_details = user_details
-        }
-    }
+    await get_bookings_sorted()
     res.render("mylistings.ejs",{data:user_listings})
 })
 
 app.get("/viewbookings",checkauthenticated,async (req,res)=>{
+    await get_bookings_sorted()
     let bookies = await get_bookings_userid(req.user._id)
     for (let b of bookies){
         let bb = await get_listing(b.listing_id)
         b.listing_details = bb
     }
     res.render("viewbooking.ejs",{data:bookies})
+})
+
+app.get('/getcomments/:id',checkauthenticated,async (req,res)=>{
+    let comments = await get_comments_for_listing(new ObjectId(req.params.id))
+    res.json(comments)
 })
 
 app.get('/success/:id',checkauthenticated,async (req,res)=>{
@@ -150,10 +175,11 @@ app.post('/bookbooking/:id',checkauthenticated,async (req,res)=>{
         belongs_to : d.user_id,
         start_date : req.body.start_date,
         end_date : req.body.end_date,
-        payment: req.body.payment
+        payment: req.body.payment,
+        status : "ongoing"
     }
     let su = await add_booking(o)
-    let dd = await change_available(obb)
+    let dd = await change_available(obb,o.end_date)
     return res.redirect("/success/"+ new ObjectId(su.insertedId))
 })
 
@@ -197,6 +223,7 @@ app.post("/createlisting",checkauthenticated,upload.single('image'),async(req,re
     new_data.picture = req.file.filename
     new_data.user_id = req.user._id
     new_data.available = true 
+    new_data.booked_till = "N/a"
     try{
         let ack = await create_listing(new_data)
         return res.redirect("/home")
@@ -213,12 +240,11 @@ app.get('/login', checknotauthenticated,(req, res) => {
 app.get('/home', checkauthenticated,async (req, res) => {
     let data = await get_listings()
     for (let l of data){
-        let s = "/getlisting/"+ l._id.toString()
+        let s = "/vlisting/"+ l._id.toString()
         l.link = s
     }
     res.render('home.ejs',{data:data,fname : req.user.first_name,lname : req.user.last_name})
 })
-
 
 app.post('/login',checknotauthenticated,passport.authenticate('login', {
     successRedirect: '/home',

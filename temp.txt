@@ -1,0 +1,30 @@
+<!-- <%if(listing.available===false){ %>
+                <h1>
+                    Booking Id - <%= listing.booking_details._id.toString() %>
+                </h1>
+                <h1>
+                    Booked Till: <%= listing.booking_details.end_date %>
+                </h1>
+                <h1>
+                    Payment Received using :<%= listing.booking_details.payment %>
+                </h1>
+                <h1>booked by User <%=listing.user_details.first_name%>
+                        <%=listing.user_details.last_name%>
+                </h1>
+                <h1>Contact customer on <%=listing.user_details.email%> or <%=listing.user_details.phone_no%>
+                </h1>
+                <%}%>
+        </div> -->
+        /modifylisting/<%= listing._id.toString()%>
+
+
+
+            // for(let u of user_listings){
+    //     if (u.available === false){
+    //         let booking_details = await get_bookings_owned(u._id)
+    //         let user_details = await get_user_byid(booking_details.
+    //             bookedby_user_id)
+    //         u.booking_details = booking_details
+    //         u.user_details = user_details
+    //     }
+    // }
