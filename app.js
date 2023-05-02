@@ -27,6 +27,9 @@ import change_available_to_true from './data_handler/change_available_to_true.js
 import get_bookings_sorted from './data_handler/get_bookings_sorted.js'
 import get_comments_for_listing from './data_handler/get_comments_for_listing.js'
 import post_comment_to_listing from './data_handler/post_comment_to_listing.js'
+import * as h from './helpers.js';
+import post_review from './data_handler/post_review.js';
+import get_reviews_for_listing from './data_handler/get_reviews_for_listing.js'
 
 dotenv.config();
 
@@ -68,6 +71,23 @@ initializepassport(
     email => users.find(user => user.email === email),
     id => users.find(user => user.id === id)
 )
+
+app.get('/getreviewsforlisting/:id',checkauthenticated,async (req,res)=>{
+    let reviews = await get_reviews_for_listing(new ObjectId(req.params.id))
+    res.json(reviews)
+})
+
+app.post("/postreview",checkauthenticated,async (req,res)=>{
+    let ob = {
+        review:req.body.review,
+        rating:req.body.rating,
+        booking_id: new ObjectId(req.body.booking_id),
+        listing_id: new ObjectId(req.body.listing_id),
+        postedby_user: new ObjectId(req.body.postedby_user),
+    }
+    let ack = await post_review(ob)
+    res.json("review posted")
+})
 
 app.post("/postcomment/:id",checkauthenticated,async (req,res)=>{
     let user_data = await get_user_byid(req.user._id)
@@ -147,14 +167,18 @@ app.get('/mylistings',checkauthenticated,async (req,res)=>{
     res.render("mylistings.ejs",{data:user_listings})
 })
 
-app.get("/viewbookings",checkauthenticated,async (req,res)=>{
-    await get_bookings_sorted()
+app.get('/bookingdataofuser',checkauthenticated,async (req,res)=>{
     let bookies = await get_bookings_userid(req.user._id)
     for (let b of bookies){
         let bb = await get_listing(b.listing_id)
         b.listing_details = bb
     }
-    res.render("viewbooking.ejs",{data:bookies})
+    return res.json(bookies)
+})
+
+app.get("/viewbookings",checkauthenticated,async (req,res)=>{
+    await get_bookings_sorted()
+    res.render("viewbooking.ejs")
 })
 
 app.get('/getcomments/:id',checkauthenticated,async (req,res)=>{
@@ -191,28 +215,38 @@ app.get("/",checknotauthenticated,(req, res) => {
 })
 
 app.get("/register", checknotauthenticated,(req, res) => {
-    res.render('register.ejs');
+    res.render('register.ejs',{error:false});
 })
 
 app.post('/register', checknotauthenticated,async (req, res) => {
-    // do all input checking if error redirect to register again or alert
+    try{
+        h.fnamechecker(req.body.fname)
+        h.lnamechecker(req.body.lname)
+        await h.emailaddresschecker(req.body.email)
+        h.passwordchecker(req.body.password)
+        h.passwordchecker(req.body.confirmpassword)
+        h.phonenochecker(req.body.phone_no)
+        if (req.body.password !== req.body.confirmpassword) throw "Error: Password and Confirm Password not same"
+    }
+    catch(e){
+        return res.render('register.ejs',{error:e})
+    }
     try {
         const hasedpassword = await bcrypt.hash(req.body.password, 10)
         const user_obj = {
             id: Math.random() * 100,
-            first_name: req.body.fname,
-            last_name: req.body.lname,
-            email: req.body.email,
+            first_name: req.body.fname.toUpperCase().trim(),
+            last_name: req.body.lname.toUpperCase().trim(),
+            email: req.body.email.toLowerCase().trim(),
             password: hasedpassword,
             phone_no: req.body.phone_no,
-            rating: 0
         };
-        await add_user(user_obj);
-        res.redirect("/login")
+        let ack = await add_user(user_obj);
+        if (ack === null) throw "Error : Internal Server Error!"
+        return res.redirect("/login")
     }
-    catch {
-        res.redirect("/register")
-        console.log("error while hashing")
+    catch(e) {
+        return res.render('register.ejs',{error:e})
     }
 })
 
@@ -237,7 +271,7 @@ app.post("/createlisting",checkauthenticated,upload.single('image'),async(req,re
 })
 
 app.get('/login', checknotauthenticated,(req, res) => {
-    res.render('login.ejs')
+    return res.render('login.ejs',{error:false})
 })
 
 app.get('/getalllistings',checkauthenticated,async (req,res)=>{

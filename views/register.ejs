@@ -1,28 +1,53 @@
-<h1>Share Space</h1>
-<h1>Register</h1>
-<!-- do server side input checking create script and check all inputs and only then pass to server  -->
-<form action="/register" method="POST">
-    <div>
-        <label for="fname">First Name</label>
-        <input type="text" id="fname" name="fname" required>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/register_style.css">
+    <script src="/js/register.js" defer></script>
+    <title>Registeration Page</title>
+</head>
+
+<body>
+    <div class="register_container">
+        <h1>Share Space</h1>
+        <h1>Register Here</h1>
+        <form action="/register" method="POST">
+            <div class="cont">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="fname" required>
+            </div>
+            <div class="cont">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" name="lname" required>
+            </div>
+            <div class="cont">
+                <label for="email">E Mail</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+            <div class="cont">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="cont">
+                <label for="confirmpassword">Confirm Password</label>
+                <input type="text" id="confirmpassword" name="confirmpassword" required>
+            </div>
+            <div class="cont">
+                <label for="phone_no">Phone NO</label>
+                <input type="tel" id="phone_no" name="phone_no" pattern="[0-9]{10}" required>
+            </div>
+            <% if(error) { %>
+                <p>failed at server : <%= error %></p>
+             <% } %>
+            <div id="error" style="display: none;"></div>
+            <button type="submit">Register</button>
+            <br>
+            Already a User ? <a href="/login">Login</a>
+        </form>
     </div>
-    <div>
-        <label for="lname">Last Name</label>
-        <input type="text" id="lname" name="lname" required>
-    </div>
-    <div>
-        <label for="email">E Mail</label>
-        <input type="text" id="email" name="email" required>
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="text" id="password" name="password" required>
-    </div>
-    <div>
-        <label for="phone_no">Phone NO</label>
-        <input type="text" id="phone_no" name="phone_no" required>
-    </div>
-    <button type="submit">Register</button>
-</form>
-Already a User =>
-<a href="/login">Login</a>
+</body>
+
+</html>

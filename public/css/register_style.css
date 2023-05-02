@@ -1,0 +1,80 @@
+html{
+    height: 100%;
+}
+body{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    background: linear-gradient(black,blue);
+    color: white;
+}
+.logo{
+    color: white;
+    text-align: center;
+    padding-top: 40px;
+    transition-duration: 0.5s;
+    margin-bottom: 20px;
+}
+.register_container{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 450px;
+    padding: 40px;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    box-shadow: 0 20px 25px black;
+    border-radius: 14px;
+}
+.register_container h1{
+    margin: 0 0 40px;
+    padding: 0;
+    color: white;
+    text-align: center;
+}
+.register_container a{
+    margin-top: 20px;
+    color: white;
+}
+.cont{
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.cont input{
+    width: 100%;
+    padding: 8px 0;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+    background: transparent;
+}
+::placeholder{
+    color: white;
+    opacity: 0.4;
+}
+.cont label{
+    padding:12px 0;
+    font-size: 16px;
+    color: white;
+    pointer-events: none;
+    transition: 2s;
+}
+.register_container button{
+    margin-top: 20px;
+    width: 150px;
+    height: 40px;
+    border-radius: 12px;
+    border: 3px solid black;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+button {
+    transition-duration: 0.5s;
+}
+.register_container button:hover{
+    background-color: black;
+    color: white;
+}

@@ -19,10 +19,10 @@ function loadcomments() {
                         <p>Comment Made By user ${comment.fname} ${comment.lname}
                     </div>
             `;
-            commentContainer.appendChild(commenttDiv);
+                commentContainer.appendChild(commenttDiv);
             }
         }
-        })
+    })
 }
 
 function postcomment() {
@@ -41,4 +41,33 @@ function postcomment() {
     })
 }
 
+function loadreviews() {
+    let listingid = document.getElementById("id").value
+    let requesturl = "http://localhost:7777/getreviewsforlisting/" + listingid
+    $.ajax({
+        url: requesturl,
+        type: "GET",
+        data: "json",
+        success: function (res) {
+            const reviewContainer = document.getElementById("reviews")
+            reviewContainer.innerHTML = ""
+            for (let review of res){
+                console.log(review)
+                const reviewtDiv = document.createElement("div");
+                reviewtDiv.className = "reviewposted"
+                reviewtDiv.innerHTML =
+                `
+                <div>   
+                <h2>Rating is Anonymous</h2>
+                <h2>${review.review}</h2>
+                <p>Rating : ${review.rating}</p>
+                </div>
+                `;
+                reviewContainer.appendChild(reviewtDiv);
+            }
+        }
+    })
+}
+
 window.onload = loadcomments
+loadreviews()
