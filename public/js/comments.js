@@ -28,14 +28,15 @@ function loadcomments() {
 function postcomment() {
     let listingid = document.getElementById("id").value
     let posturl = "http://localhost:7777/postcomment/" + listingid
-    let comment = document.getElementById("comment").value
+    let comment = document.getElementById("comment")
     $.ajax({
         url: posturl,
         data: {
-            comment: comment
+            comment: comment.value
         },
         type: "POST",
         success: function (res) {
+            comment.value = ""
             loadcomments()
         }
     })

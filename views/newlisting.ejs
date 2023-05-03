@@ -17,7 +17,7 @@
             <div style="width: 80%; padding: 20px;">
                 <label for="price">price/month</label><br>
                 <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
-                <input type="number" id="price" name="price" placeholder="Enter the price of the space" min='0' required>
+                <input type="number" id="price" name="price" placeholder="Enter the price of the space" min='1' required>
             </div>
             <div style="width: 80%; padding: 20px;">
                 <label for="length">length in m</label><br>
@@ -50,6 +50,12 @@
             Your Current Location : <span id="location"></span>
             <br>
             <input type="file" name="image" id="image">
+            <div style="color: red;">
+            <% if(error){ %> 
+                Server Error : <%= error %>
+            <% } %> 
+        </div>
+        <div id="error" style="display: none;"></div>
             <button type="submit">Create</button>
         </form>
     </div>

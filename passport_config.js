@@ -13,14 +13,14 @@ function initialize(passport, getuserbyemail, getuserbyid) {
         }
         const user = getuserbyemail(email.toLowerCase())
         if (user == null) {
-            return done(null, false, { message: 'Error: The User Is Not Registered! Please Register' })
+            return done(null, false, { message: 'Error: Either the EMAIL OR PASSWORD IS INCORRECT' })
         }
         try {
             if (await bcrypt.compare(password, user.password)) {
                 return done(null, user)
             }
             else {
-                return done(null, false, { message: 'Password Is Incorrect' })
+                return done(null, false, { message: 'Error: Either the EMAIL OR PASSWORD IS INCORRECT' })
             }
         } catch (e) {
             return done(e)

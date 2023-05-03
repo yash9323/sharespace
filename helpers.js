@@ -57,3 +57,75 @@ export async function checkemailindb(emailAddress){
     }
     return hit
 }
+
+export function addresscheker(address){
+    if (address === undefined) throw "Error: Address Cannot be Empty";
+    if (typeof address !== "string") throw "Error: Address can only be string input";
+    if (address.trim().length === 0) throw "Error: Address can not be just spaces";
+    if (address.length < 5 || address.length > 40) throw "Error: Address can only be between 5 and 40 characters";
+}
+
+export function descriptioncheker(description){
+    if (description === undefined) throw "Error: Description Cannot be Empty";
+    if (typeof description !== "string") throw "Error: Description can only be string input";
+    if (description.trim().length === 0) throw "Error: Description can not be just spaces";
+    if (description.length < 5 || description.length > 40) throw "Error: Description can only be between 5 and 40 characters";
+}
+
+export function pricechecker(price){
+    if (price === undefined) throw "Error: The price is not passed !";
+    if (typeof price !== "string") throw "Error: The price is not type string";
+    if (price.trim().length === 0) throw "Error: price can not be just spaces";
+    if (/[A-Za-z]/.test(price)) throw "Error : Price can not have any letters"
+    if (Number(price) < 1) throw "Error: Price can not be zero or negative";
+}
+
+export function lengthchecker(length){
+    if (length === undefined) throw "Error: The length is not passed !"
+    if (typeof length !== "string") throw "Error: The length is not type string"
+    if (length.trim().length === 0) throw "Error: length can not be just spaces";
+    if (/[A-Za-z]/.test(length)) throw "Error : length can not have any letters";
+    if (Number(length) < 1) throw "Error: length can not be zero or negative";
+}
+
+export function widthchecker(width){
+    if (width === undefined) throw "Error: The width is not passed !"
+    if (typeof width !== "string") throw "Error: The width is not type string"
+    if (width.trim().length === 0) throw "Error: width  can not be just spaces";
+    if (/[A-Za-z]/.test(width)) throw "Error : width can not have any letters";
+    if (Number(width) < 1) throw "Error: width  can not be zero or negative";
+}
+
+export function heightchecker(height){
+    if (height === undefined) throw "Error: The height is not passed !"
+    if (typeof height !== "string") throw "Error: The height is not type string"
+    if (height.trim().length === 0) throw "Error: height can not be just spaces";
+    if (/[A-Za-z]/.test(height)) throw "Error : height can not have any letters";
+    if (Number(height) < 1) throw "Error: height can not be zero or negative";
+}
+
+export function areachecker(area,length,width){
+    if (area === undefined) throw "Error : Area not passed";
+    if (typeof area !== "string") throw "Error: Area not type string";
+    if (Number(area) < 1 ) throw "Error: area Cannot be negative or zero";
+    if (/[A-Za-z]/.test(area)) throw "Error : area can not have any letters";
+    if ((Number(length) * Number(width)) !== Number(area)) throw "Error: Inconsistent Area calculation"
+}
+
+export function volumechecker(volume,length,width,height){
+    if (volume === undefined) throw "Error : volume not passed";
+    if (typeof volume !== "string") throw "Error: volume not type string";
+    if (Number(volume) < 1 ) throw "Error: volume Cannot be negative or zero";
+    if (/[A-Za-z]/.test(volume)) throw "Error : volume can not have any letters";
+    if ((Number(length) * Number(width) * Number(height)) !== Number(volume)) throw "Error: Inconsistent volume calculation"
+}
+
+export function lonchecker(lon){
+    if (lon === undefined) throw "Error : lon not passed";
+    if (typeof lon !== "string") throw "Error: lon not type string"; 
+}
+
+export function latchecker(lat){
+    if (lat === undefined) throw "Error : lat not passed";
+    if (typeof lat !== "string") throw "Error: lat not type string"; 
+}

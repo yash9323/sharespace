@@ -39,9 +39,11 @@
                 <label for="phone_no">Phone NO</label>
                 <input type="tel" id="phone_no" name="phone_no" pattern="[0-9]{10}" required>
             </div>
-            <% if(error) { %>
-                <p>failed at server : <%= error %></p>
-             <% } %>
+            <div style="color: red;">
+                <% if(error) { %>
+                    <p>failed at server : <%= error %></p>
+                 <% } %>
+            </div>
             <div id="error" style="display: none;"></div>
             <button type="submit">Register</button>
             <br>

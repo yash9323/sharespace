@@ -72,12 +72,12 @@ initializepassport(
     id => users.find(user => user.id === id)
 )
 
-app.get('/getreviewsforlisting/:id',checkauthenticated,async (req,res)=>{
+app.get('/getreviewsforlisting/:id',authenticatedrequest,async (req,res)=>{
     let reviews = await get_reviews_for_listing(new ObjectId(req.params.id))
     res.json(reviews)
 })
 
-app.post("/postreview",checkauthenticated,async (req,res)=>{
+app.post("/postreview",authenticatedrequest,async (req,res)=>{
     let ob = {
         review:req.body.review,
         rating:req.body.rating,
@@ -89,7 +89,7 @@ app.post("/postreview",checkauthenticated,async (req,res)=>{
     res.json("review posted")
 })
 
-app.post("/postcomment/:id",checkauthenticated,async (req,res)=>{
+app.post("/postcomment/:id",authenticatedrequest,async (req,res)=>{
     let user_data = await get_user_byid(req.user._id)
     let ob = {
         comment : req.body.comment,
@@ -103,7 +103,7 @@ app.post("/postcomment/:id",checkauthenticated,async (req,res)=>{
     res.json("comment posted")
 })
 
-app.get('/vlisting/:id',checkauthenticated,async (req,res)=>{
+app.get('/vlisting/:id',authenticatedrequest,async (req,res)=>{
     let d = await get_listing(new ObjectId(req.params.id.trim()))
     let user_data = await get_user_byid(d.user_id)
     d.user_data = user_data
@@ -116,23 +116,23 @@ app.get('/vlisting/:id',checkauthenticated,async (req,res)=>{
     res.render("view_listing.ejs",d)
 })
 
-app.get('/book/:id',checkauthenticated,async (req,res)=>{
+app.get('/book/:id',authenticatedrequest,async (req,res)=>{
     let d = await get_listing(new ObjectId(req.params.id.trim()))
     res.render("book_listing.ejs",d)
 })
 
-app.get('/modifylisting/:id',checkauthenticated,async (req,res)=>{
+app.get('/modifylisting/:id',authenticatedrequest,async (req,res)=>{
     let d = await get_listing(new ObjectId(req.params.id.trim()))
     res.render("modify_listing.ejs",d)
 })
 
-app.post('/deletelisting/:id',checkauthenticated,async (req,res)=>{
+app.post('/deletelisting/:id',authenticatedrequest,async (req,res)=>{
     // add check only owner of listing can delete listing
     let confirm_delete = await delete_listing(new ObjectId(req.params.id.trim()))
     return res.redirect('/mylistings')
 })
 
-app.post('/modifylisting/:id',checkauthenticated,async (req,res)=>{
+app.post('/modifylisting/:id',authenticatedrequest,async (req,res)=>{
     let new_details = {
         id : new ObjectId(req.params.id.trim()),
         address: req.body.address,
@@ -149,25 +149,25 @@ app.post('/modifylisting/:id',checkauthenticated,async (req,res)=>{
     res.redirect('/viewlisting/'+success.value._id.toString())
 })
 
-app.get('/viewlisting/:id',checkauthenticated,async (req,res)=>{
+app.get('/viewlisting/:id',authenticatedrequest,async (req,res)=>{
     let d = await get_listing(new ObjectId(req.params.id.trim()))
     let all_bookings = await get_all_bookings_on_listingid(d._id)
     d.bookings = all_bookings
     res.render("viewuserlisting.ejs",d)
 })
 
-app.post('/makeavailable/:id',checkauthenticated,async (req,res)=>{
+app.post('/makeavailable/:id',authenticatedrequest,async (req,res)=>{
     let change = await change_available_to_true(new ObjectId(req.params.id.trim()))
     res.redirect('/home')
 })
 
-app.get('/mylistings',checkauthenticated,async (req,res)=>{
+app.get('/mylistings',authenticatedrequest,async (req,res)=>{
     let user_listings = await get_listings_userid(req.user._id)
     await get_bookings_sorted()
     res.render("mylistings.ejs",{data:user_listings})
 })
 
-app.get('/bookingdataofuser',checkauthenticated,async (req,res)=>{
+app.get('/bookingdataofuser',authenticatedrequest,async (req,res)=>{
     let bookies = await get_bookings_userid(req.user._id)
     for (let b of bookies){
         let bb = await get_listing(b.listing_id)
@@ -176,23 +176,23 @@ app.get('/bookingdataofuser',checkauthenticated,async (req,res)=>{
     return res.json(bookies)
 })
 
-app.get("/viewbookings",checkauthenticated,async (req,res)=>{
+app.get("/viewbookings",authenticatedrequest,async (req,res)=>{
     await get_bookings_sorted()
     res.render("viewbooking.ejs")
 })
 
-app.get('/getcomments/:id',checkauthenticated,async (req,res)=>{
+app.get('/getcomments/:id',authenticatedrequest,async (req,res)=>{
     let comments = await get_comments_for_listing(new ObjectId(req.params.id))
     res.json(comments)
 })
 
-app.get('/success/:id',checkauthenticated,async (req,res)=>{
+app.get('/success/:id',authenticatedrequest,async (req,res)=>{
     let booking_details = await get_booking(new ObjectId(req.params.id))
     let d = await get_listing(booking_details.listing_id)
     return res.render("booking_confirmation.ejs",{booking_details:booking_details,listing:d})
 })
 
-app.post('/bookbooking/:id',checkauthenticated,async (req,res)=>{
+app.post('/bookbooking/:id',authenticatedrequest,async (req,res)=>{
     //allow booking available false other return error
     let obb = new ObjectId(req.params.id)
     let d = await get_listing(obb)
@@ -210,15 +210,15 @@ app.post('/bookbooking/:id',checkauthenticated,async (req,res)=>{
     return res.redirect("/success/"+ new ObjectId(su.insertedId))
 })
 
-app.get("/",checknotauthenticated,(req, res) => {
+app.get("/",notauthenticatedrequest,(req, res) => {
     res.render('landing.ejs');
 })
 
-app.get("/register", checknotauthenticated,(req, res) => {
+app.get("/register", notauthenticatedrequest,(req, res) => {
     res.render('register.ejs',{error:false});
 })
 
-app.post('/register', checknotauthenticated,async (req, res) => {
+app.post('/register', notauthenticatedrequest,async (req, res) => {
     try{
         h.fnamechecker(req.body.fname)
         h.lnamechecker(req.body.lname)
@@ -250,12 +250,27 @@ app.post('/register', checknotauthenticated,async (req, res) => {
     }
 })
 
-app.get("/newlisting",checkauthenticated,(req,res)=>{
-    res.render("newlisting.ejs");
+app.get("/newlisting",authenticatedrequest,(req,res)=>{
+    res.render("newlisting.ejs",{error:false});
 })
 
-app.post("/createlisting",checkauthenticated,upload.single('image'),async(req,res)=>{
-    // do input checking here 
+app.post("/createlisting",authenticatedrequest,upload.single('image'),async(req,res)=>{
+    console.log(req.body)
+    try{
+        h.addresscheker(req.body.address)
+        h.descriptioncheker(req.body.description)
+        h.pricechecker(req.body.price)
+        h.lengthchecker(req.body.length)
+        h.widthchecker(req.body.width)
+        h.heightchecker(req.body.height)
+        h.latchecker(req.body.lat)
+        h.lonchecker(req.body.lon)
+        h.areachecker(req.body.area,req.body.length,req.body.width)
+        h.volumechecker(req.body.volume,req.body.length,req.body.width,req.body.height)
+    }
+    catch(e){
+        return res.render("newlisting.ejs",{error:e})
+    }
     let new_data = req.body 
     new_data.picture = req.file.filename
     new_data.user_id = req.user._id
@@ -270,11 +285,11 @@ app.post("/createlisting",checkauthenticated,upload.single('image'),async(req,re
     }
 })
 
-app.get('/login', checknotauthenticated,(req, res) => {
+app.get('/login', notauthenticatedrequest,(req, res) => {
     return res.render('login.ejs',{error:false})
 })
 
-app.get('/getalllistings',checkauthenticated,async (req,res)=>{
+app.get('/getalllistings',authenticatedrequest,async (req,res)=>{
     let data = await get_listings()
     for (let l of data){
         let s = "/vlisting/"+ l._id.toString()
@@ -283,17 +298,19 @@ app.get('/getalllistings',checkauthenticated,async (req,res)=>{
     res.json(data)
 })
 
-app.get('/home', checkauthenticated,async (req, res) => {
-    res.render('home.ejs',{fname : req.user.first_name,lname : req.user.last_name})
+// route home returns home ejs and some user data
+app.get('/home', authenticatedrequest,async (req, res) => {
+    return res.render('home.ejs',{fname : req.user.first_name,lname : req.user.last_name})
 })
 
-app.post('/login',checknotauthenticated,passport.authenticate('login', {
+app.post('/login',notauthenticatedrequest,passport.authenticate('login', {
     successRedirect: '/home',
     failureRedirect: '/login',
     failureFlash: true
 }))
 
-app.delete('/logout', checkauthenticated,(req, res) => {
+// Route Function to log user out of the session and redirects to landing page
+app.delete('/logout', authenticatedrequest,(req, res) => {
     req.logOut(
         function (err) {
             if (err) {
@@ -303,20 +320,33 @@ app.delete('/logout', checkauthenticated,(req, res) => {
     return res.redirect('/')
 })
 
-function checkauthenticated(req, res, next) {
+// Route to handle about page return about ejs no authentication needed
+app.get("/about",(req,res)=>{
+    return res.render('about.ejs')
+})
+
+// Route to handle all the other enpoints just in case user tries to go here and there
+app.get('*',authenticatedrequest,(req,res)=>{
+    return res.redirect('/home')
+})
+
+// Function to check if user is authenticated
+function authenticatedrequest(req, res, next) {
     if (req.isAuthenticated()) {
         return next()
     }
     return res.redirect('/')
 }
 
-function checknotauthenticated(req, res, next) {
+// Function to check if user is not authenticated
+function notauthenticatedrequest(req, res, next) {
     if (req.isAuthenticated()) {
         return res.redirect('/home')
     }
     next()
 }
 
+// Running the server on port 7777
 app.listen(7777, () => {
     console.log("Server Running on port 7777");
 })

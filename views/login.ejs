@@ -23,12 +23,15 @@
             <div class="input-container">
                 <label for="password">Your Password</label><br>
                 <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
-                <input type="text" id="password" name="password" placeholder="Your password" required>
+                <input type="password" id="password" name="password" placeholder="Your password" required>
             </div>
             <br>
-            <% if (messages.error){%>
-                <%= messages.error %>
-                    <% } %>
+            <div style="color: red;">
+                <% if (messages.error){%>
+                    Server Error : <br>
+                    <%= messages.error %>
+                        <% } %>
+                </div>
             <div id="error" style="display: none;"></div>
             <br>
             <button type="submit">Login</button>
