@@ -73,11 +73,13 @@ initializepassport(
 )
 
 app.get('/getreviewsforlisting/:id',authenticatedrequest,async (req,res)=>{
+    // check if object id is valid on both places
     let reviews = await get_reviews_for_listing(new ObjectId(req.params.id))
     res.json(reviews)
 })
 
 app.post("/postreview",authenticatedrequest,async (req,res)=>{
+    // check if req.body data is valid and only then post it into review
     let ob = {
         review:req.body.review,
         rating:req.body.rating,
@@ -90,6 +92,7 @@ app.post("/postreview",authenticatedrequest,async (req,res)=>{
 })
 
 app.post("/postcomment/:id",authenticatedrequest,async (req,res)=>{
+    // check if req.body data is valid and only then post it into comment
     let user_data = await get_user_byid(req.user._id)
     let ob = {
         comment : req.body.comment,
@@ -104,6 +107,7 @@ app.post("/postcomment/:id",authenticatedrequest,async (req,res)=>{
 })
 
 app.get('/vlisting/:id',authenticatedrequest,async (req,res)=>{
+    // check if object id is valid on both places
     let d = await get_listing(new ObjectId(req.params.id.trim()))
     let user_data = await get_user_byid(d.user_id)
     d.user_data = user_data
@@ -117,11 +121,13 @@ app.get('/vlisting/:id',authenticatedrequest,async (req,res)=>{
 })
 
 app.get('/book/:id',authenticatedrequest,async (req,res)=>{
+    // only allow this if the user id requested is different from the listing user_id other wise error page with error message
     let d = await get_listing(new ObjectId(req.params.id.trim()))
     res.render("book_listing.ejs",d)
 })
 
 app.get('/modifylisting/:id',authenticatedrequest,async (req,res)=>{
+    // only allow if the userid on the listing id is same otherwise error page with error message
     let d = await get_listing(new ObjectId(req.params.id.trim()))
     res.render("modify_listing.ejs",d)
 })
@@ -133,6 +139,8 @@ app.post('/deletelisting/:id',authenticatedrequest,async (req,res)=>{
 })
 
 app.post('/modifylisting/:id',authenticatedrequest,async (req,res)=>{
+    // add check only owner of listing can modify listing
+    // add data checks on both the endpoints and also data side + client 
     let new_details = {
         id : new ObjectId(req.params.id.trim()),
         address: req.body.address,
@@ -157,13 +165,14 @@ app.get('/viewlisting/:id',authenticatedrequest,async (req,res)=>{
 })
 
 app.post('/makeavailable/:id',authenticatedrequest,async (req,res)=>{
+    // add check only owner of listing can make listing available
     let change = await change_available_to_true(new ObjectId(req.params.id.trim()))
     res.redirect('/home')
 })
 
 app.get('/mylistings',authenticatedrequest,async (req,res)=>{
-    let user_listings = await get_listings_userid(req.user._id)
     await get_bookings_sorted()
+    let user_listings = await get_listings_userid(req.user._id)
     res.render("mylistings.ejs",{data:user_listings})
 })
 
@@ -285,17 +294,19 @@ app.post("/createlisting",authenticatedrequest,upload.single('image'),async(req,
     }
 })
 
+// renders login only for non authenticated user and server error false 
 app.get('/login', notauthenticatedrequest,(req, res) => {
     return res.render('login.ejs',{error:false})
 })
 
+// enpoint to get listings data and send json for authenticated users 
 app.get('/getalllistings',authenticatedrequest,async (req,res)=>{
     let data = await get_listings()
     for (let l of data){
         let s = "/vlisting/"+ l._id.toString()
         l.link = s
     }
-    res.json(data)
+    return res.json(data)
 })
 
 // route home returns home ejs and some user data
