@@ -9,18 +9,24 @@ body{
     color: white;
 }
 .logo{
+    font-size: 4vh;
+    letter-spacing: 10px;
     color: white;
     text-align: center;
-    padding-top: 40px;
-    transition-duration: 0.5s;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+.logo a{
+    text-decoration: none;
+    color: white;
 }
 .register_container{
-    position: absolute;
+    position:absolute;
     left: 50%;
-    top: 50%;
-    width: 450px;
+    top: 60%;
+    width: 550px;
     padding: 40px;
+    height: 80vh;
     transform: translate(-50%,-50%);
     box-sizing: border-box;
     box-shadow: 0 20px 25px black;
@@ -38,7 +44,7 @@ body{
 }
 .cont{
     position: relative;
-    padding-top: 20px;
+    padding-top: 10px;
     padding-bottom: 10px;
 }
 .cont input{

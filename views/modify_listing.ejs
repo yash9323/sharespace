@@ -6,48 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/js/m_listing.js" defer></script>
     <link rel="stylesheet" href="/css/modify.css">
-    <title>Modify</title>
+    <title>Modify listing</title>
 </head>
-<body class="body">
+<body>
+    <div class="nav">
+        <div class="logo">
+            <h1>Share Space</h1>
+        </div>
+        <div class="links">
+            <a href="/viewbookings">Your Bookings</a>
+            <a href="/mylistings">My Listings</a>
+            <a href="/newlisting">Add Listing</a>
+            <a href="/home">Home</a>
+        </div>
+    </div>
     <div class="projectbox">
         <h1>Modify Listing </h1>
         <div class="card-img" style="width: 200px; height: 200px;">
             <img src="/images/<%= picture %>" alt="image" width="100%" height="100%">
         </div>
         <form action="/modifylisting/<%= _id.toString() %>" method="POST">
-            <div style="width: 80%; padding: 10px;">
+            <div class="contt">
                 <label for="address">Listing Address</label>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <textarea id="address" name="address" placeholder="Your space address" required><%= address %></textarea>
             </div>
-            <div style="width: 80%; padding: 20px;">
+            <div class="contt">
                 <label for="description">Description</label><br>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <textarea id="description" name="description" placeholder="Your description" required><%= description %></textarea>
             </div>
-            <div style="width: 80%; padding: 20px;">
+            <div class="contt">
                 <label for="price">price/month</label><br>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <input type="number" id="price" name="price" placeholder="Enter the price of the space" min='0' value = "<%= price %>" required>
             </div>
-            <div style="width: 80%; padding: 20px;">
+            <div class="contt">
                 <label for="length">length</label><br>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <input type="number" id="length" name="length" placeholder="Enter the length of the space" min='0' value = "<%= length %>" oninput="calculatearea()" required>
             </div>
-            <div style="width: 80%; padding: 20px;">
+            <div class="contt">
                 <label for="width">width</label><br>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <input type="number" id="width" name="width" placeholder="Enter the width of the space" min='0' value = "<%= width %>" oninput="calculatearea()" required>
             </div>
-            <div style="width: 80%; padding: 20px;">
+            <div class="contt">
                 <label for="height">height</label><br>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <input type="number" id="height" name="height" placeholder="Enter the height of the space" min='0' value = "<%= height %>" oninput= "calculatevolume()" required>
             </div>
-            <div style="width: 80%; padding: 20px;">
+            <div class="contt">
                 <label for="available_till">Available_Till</label><br>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <input type="date" id="available_till" name="available_till" min ="<%= available_till %>" value = "<%= available_till %>" required>
             </div>
             <input type="hidden" id="area" name="area">
@@ -74,7 +78,6 @@
             <h1>These changes will take effect only after the exitsting booking expires </h1>
             <h1>You can only Delete Listing after the booking is complete</h1>
             <%}%>
-    </div>
     </div>
 </body>
 </html>

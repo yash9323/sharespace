@@ -1,27 +1,92 @@
-body{
-    background: #212121;
-    color: white;
-    margin: 20px;
+html {
+    width: 100%;
+    height: 100%;
+    scroll-behavior: smooth;
 }
-.listings{
+
+body {
+    margin: 0;
+    padding: 0;
+    color: white;
+    background: black;
+    height: fit-content;
+}
+.nav {
+    height: 20vh;
     display: flex;
-    flex-wrap: wrap;
-    column-gap: 20px;
+    background-color: black;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5vh;
+    color: white;
+    border-bottom-left-radius: 120px;
+    border-bottom-right-radius: 120px;
+}
+.logo{
+    font-size: 28px;
+    letter-spacing: 10px;
+}
+.links a {
+    margin-left: 20px;
+    padding: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+}
+.links a:hover{
+    border-bottom: 2px solid white;
+}
+.listview{
+    background: linear-gradient(black,blue);
+    width: 100%;
+}
+.searcher{
+    width: 300px;
+    height: 40px;
+    color: black;
+}
+.div1 {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.filterpart{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     row-gap: 20px;
 }
+
+.listings{
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 25px;
+    row-gap: 25px;
+    width: 800px;
+}
 .card {
-    width: 190px;
-    height: 380px;
+    width: 200px;
+    height: 420px;
     padding: .8em;
     background: #f5f5f5;
     position: relative;
     overflow: visible;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     color: black;
+    border: 4px solid black;
    }
-   
+
+   .card:hover {
+    background: black;
+    color: white;
+    border: 2px solid white;
+   }
+
    .card-img {
-    background-color: #ffcaa6;
+    background-color: black;
     height: 40%;
     width: 100%;
     border-radius: .5rem;
@@ -30,10 +95,10 @@ body{
    
    .card-info {
     padding-top: 10%;
-    white-space: nowrap; /* Prevent line breaks */
-    overflow: hidden; /* Hide overflowing text */
-    text-overflow: ellipsis; /* Add ellipsis */
-    max-width: 100%; /* Optional: set max-width of element */
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    max-width: 100%; 
    }
 
    .card-footer {
@@ -60,4 +125,69 @@ body{
    .card-img:hover {
     transform: translateY(-25%);
     box-shadow: rgba(226, 196, 63, 0.25) 0px 13px 47px -5px, rgba(180, 71, 71, 0.3) 0px 8px 16px -8px;
+   } 
+
+   .midpage{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
    }
+
+   .abc{
+    width: 200px;
+    font-size: 24px;
+    border: 2px solid black;
+    background: black;
+    padding: 20px;
+   }
+
+   .popup-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .popup-form form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+  
+  .popup-form h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: black;
+  }
+  
+  .popup-form button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+  }
+  
+  .popup-form .btn-logout {
+    background-color: #f44336;
+    color:black;
+    border: none;
+  }
+  
+  .popup-form .btn-cancel {
+    background-color: #ccc;
+    color: #000;
+    border: none;
+  }
+  
+  .popup-form .btn-cancel:hover {
+    background-color: #aaa;
+  }

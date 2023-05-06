@@ -10,10 +10,10 @@
 </head>
 <body>
     <div class="logo">
-        <h1>Share Space</h1>
+        <a href="/"><h1>Share Space</h1></a>
     </div>
     <div class="login-container">
-        <h1>Login</h1>
+        <h1>Login Here</h1>
         <form action="/login" method="POST">
             <div class="input-container">
                 <label for="email">Your E Mail</label>
@@ -32,11 +32,11 @@
                     <%= messages.error %>
                         <% } %>
                 </div>
-            <div id="error" style="display: none;"></div>
+            <div class="clienterror" id="error"></div>
             <br>
             <button type="submit">Login</button>
         </form>
-        <h3><a href="/register">Not a User ? Become a User Now !</a></h3>
+        <h2><a href="/register">Not a User ? Become a User Now !</a></h2>
     </div>
 </body>
 </html>

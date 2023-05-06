@@ -5,23 +5,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/booklisting.css">
     <script src="/js/booklisting.js" defer></script>
-    <title>Book</title>
+    <title>Book Listing</title>
 </head>
+
 <body>
-    You are booking the Space at <%= address %>
-        <br>
-        <%= description %>
-            <br>
-            <br>
-            <form action="/bookbooking/<%=_id%>" method="POST">
+    <div class="nav">
+        <div class="logo">
+            <h1>Share Space</h1>
+        </div>
+        <div class="links">
+            <a href="/viewbookings">Your Bookings</a>
+            <a href="/mylistings">My Listings</a>
+            <a href="/newlisting">Add Listing</a>
+            <a href="/home">Home</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1>You are booking the Space at <%= address %>
+        </h1>
+        <form action="/bookbooking/<%=_id%>" method="POST" class="formm">
+            <div id="error" style="display: none;"></div>
+            <div class="contt">
                 <label for="start_date">From</label>
                 <input type="date" id="start_date" name="start_date" max="<%=available_till%>">
-                <br>
-                <br>
+            </div>
+            <div class="contt">
                 <label for="end_date">To</label>
                 <input type="date" id="end_date" name="end_date" max="<%=available_till%>">
-                <br><br>
+            </div>
+            <div class="contt">
                 <label for="payment">Choose a Payment Method:</label>
                 <select name="payment" id="payment">
                     <option value="Card">Card</option>
@@ -29,10 +43,10 @@
                     <option value="Zelle">Zelle</option>
                     <option value="Cash">Cash</option>
                 </select>
-                <br>
-                <br>
-                <button type="submit">Reserve Space</button>
-            </form>
+            </div>
+            <button type="submit">Reserve Space</button>
+        </form>
+    </div>
+    <input type="hidden" value="<%=available_till%>" id="available-till">
 </body>
-
 </html>

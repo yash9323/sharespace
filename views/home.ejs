@@ -1,52 +1,71 @@
-<link rel="stylesheet" href="/css/home.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="/js/home.js" defer></script>
-welcome <%= fname %> <%= lname %>
-<br>
-<a href="/viewbookings">Your Bookings</a>
-<br>
-<a href="/mylistings">My Listings</a>
-<br>
-<button><a href="/newlisting">Add Listing</a></button>
-<br>
-<br>
-<button type="submit"  onclick="listview()">list view</button>
-<button type="submit" onclick="mapview()">Map view</button>
-<div style="max-width: 700px;display: none;" id="mapview"> 
-    <div id="map">
-        <h1>Show map</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/js/home.js" defer></script>
+    <title>Home Page</title>
+</head>
+
+<body>
+    <div class="nav">
+        <div class="logo">
+            <h1>Share Space</h1>
+        </div>
+        <div class="links">
+            <a href="/viewbookings">Your Bookings</a>
+            <a href="/mylistings">My Listings</a>
+            <a href="/newlisting">Add Listing</a>
+            <a onclick="showpopup()" class="name">
+                <%= fname %>
+                    <%= lname %>
+            </a>
+        </div>
     </div>
-</div>
-<div id="listview">
-    <input type="text" name="search" id="search" oninput="searchbyaddress()" placeholder="search for a address">
-<p id="showsearchvalue" style="display: none;"></p>
-<div id="filteroptions">
-    <select id="filter" onchange="showselectedfilter()">
-        <option value="price">Price</option>
-        <option value="area">Area</option>
-        <option value="volume">Volume</option>
-    </select>
-    <button type="submit" id="reset" onclick="reset()">Reset Filtering</button>
-</div>
-<div id="pricefilterdiv" style="display: none;">
-    <h3>Price Filtering</h3>
-<input type="range" min="5" max="50" class="slider" id="priceRange" oninput="filterprice()">
-<p id="filter_price"></p>
-</div>
-<div id="areafilterdiv" style="display: none;">
-    <h3>Area Filtering</h3>
-<input type="range" min="10" max="700" class="slider" id="areaRange" oninput="filterarea()">
-<p id="filter_area"></p>
-</div>
-<div id="volumefilterdiv" style="display: none;">
-    <h3>Volume Filtering</h3>
-<input type="range" min="10" max="1000" class="slider" id="volumeRange" oninput="filtervolume()">
-<p id="filter_volume"></p>
-</div>
-<br>
-<div class="listings" id="listings"></div>
-</div>
-<br><br>
-<form action="/logout?_method=DELETE" method="POST">
-    <button type="submit">Log out</button>
-</form>
+    <div class="listview">
+        <div class="filterpart">
+            <input type="text" class="searcher" name="search" id="search" oninput="searchbyaddress()" placeholder="search for a address">
+            <p id="showsearchvalue" style="display: none;"></p>
+            <div id="filteroptions">
+                <select id="filter" onchange="showselectedfilter()">
+                    <option value="price">Price</option>
+                    <option value="area">Area</option>
+                    <option value="volume">Volume</option>
+                </select>
+                <button type="submit" id="reset" onclick="reset()">Reset Filtering</button>
+            </div>
+            <div class="div1" id="pricefilterdiv" style="display: none;">
+                <h3>Price Filtering</h3>
+                <input type="range" min="5" max="50" class="slider" id="priceRange" oninput="filterprice()">
+                <p id="filter_price"></p>
+            </div>
+            <div class="div2" id="areafilterdiv" style="display: none;">
+                <h3>Area Filtering</h3>
+                <input type="range" min="10" max="700" class="slider" id="areaRange" oninput="filterarea()">
+                <p id="filter_area"></p>
+            </div>
+            <div class="div3" id="volumefilterdiv" style="display: none;">
+                <h3>Volume Filtering</h3>
+                <input type="range" min="10" max="2000" class="slider" id="volumeRange" oninput="filtervolume()">
+                <p id="filter_volume"></p>
+            </div>
+        </div>
+        <div class="midpage">
+            <div class="abc"><h1>AD Banner 1</h1></div>
+            <div class="listings" id="listings"></div>
+            <div class="abc"><h1>AD Banner2</h1></div>
+        </div>
+        <div id="popup-form" class="popup-form">
+            <form action="/logout?_method=DELETE" method="POST">
+                <h2>Click here to logout</h2>
+                <button type="submit">Log out</button>
+                <button type="button" class="btn-cancel" onclick="hidePopup()">Cancel</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

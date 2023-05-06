@@ -8,16 +8,29 @@ body{
     background: linear-gradient(black,blue);
 }
 .logo{
+    font-size: 4vh;
+    letter-spacing: 10px;
     color: white;
     text-align: center;
-    padding-top: 40px;
-    transition-duration: 0.5s;
+    margin-bottom: 20px;
+    padding-top: 30px;
+}
+.logo a{
+    text-decoration: none;
+    color: white;
+}
+.clienterror{
+    display: none;
+    color: red;
+    font-size: 18px;
+    text-overflow: ellipsis;
+    height: 20px;
 }
 .login-container{
     position: absolute;
     left: 50%;
-    top: 50%;
-    width: 450px;
+    top: 60%;
+    width: 500px;
     padding: 40px;
     transform: translate(-50%,-50%);
     box-sizing: border-box;
@@ -55,7 +68,7 @@ body{
 }
 .input-container label{
     padding:12px 0;
-    font-size: 16px;
+    font-size: 20px;
     color: white;
     pointer-events: none;
     transition: 2s;

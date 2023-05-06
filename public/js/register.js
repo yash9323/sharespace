@@ -13,6 +13,9 @@ form.addEventListener('submit', (event) => {
         if (fname.value.trim().length === 0) throw "Error: First Name passed only has empty spaces"
         if (/\d/.test(fname.value)) throw "Error: First Name Passed had numbers not accepted"
         if (fname.value.length < 2 || fname.value.length > 25) throw "Error: First Name should be between 2-25 characters"
+        if (/<|>/.test(fname.value)) throw "No injection of tags allowed!"
+        if (/<|>/.test(lname.value)) throw "No injection of tags allowed!"
+        if (/<|>/.test(phone_no.value)) throw "No injection of tags allowed!"
         if (lname.value === undefined) throw "Error: Last Name not passed";
         if (typeof lname.value !== "string") throw "Error: Last Name passed is not String!"
         if (lname.value.trim().length === 0) throw "Error: Last Name passed only has empty spaces"
@@ -51,5 +54,11 @@ form.addEventListener('submit', (event) => {
         fname.focus()
         return
     }
+    fname.value = fname.value.trim().toUpperCase()
+    lname.value = lname.value.trim().toUpperCase()
+    email.value = email.value.trim().toLowerCase()
+    password.value = password.value.trim()
+    confirmpassword.value = confirmpassword.value.trim()
+    phone_no.value = phone_no.value.trim()
     form.submit()
 })

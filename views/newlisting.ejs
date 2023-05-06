@@ -1,42 +1,53 @@
-<script src="js/listing.js" defer></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz4kvDWMWvlR14mrIsU_gnz70zLsJYhlo&callback=myMap" defer></script>
-<body class="body">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/listing.js" defer></script>
+    <link rel="stylesheet" href="/css/newlisting.css">
+    <title>New Listing</title>
+</head>
+<body>
+    <div class="nav">
+        <div class="logo">
+            <h1>Share Space</h1>
+        </div>
+        <div class="links">
+            <a href="/viewbookings">Your Bookings</a>
+            <a href="/mylistings">My Listings</a>
+            <a href="/home">Home</a>
+        </div>
+    </div>
     <div class="projectbox">
         <h1>Create New Listing </h1>
         <form action="/createlisting" method="POST" enctype="multipart/form-data">
-            <div style="width: 80%; padding: 10px;">
+            <div class="contt">
                 <label for="address">Listing Address</label>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <textarea id="address" name="address" placeholder="Your space address" required></textarea>
             </div>
-            <div style="width: 80%; padding: 20px;">
+            <div class="contt">
                 <label for="description">Description</label><br>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <textarea id="description" name="description" placeholder="Your description" required></textarea>
             </div>
-            <div style="width: 80%; padding: 20px;">
+            <div class="contt">
                 <label for="price">price/month</label><br>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <input type="number" id="price" name="price" placeholder="Enter the price of the space" min='1' required>
             </div>
-            <div style="width: 80%; padding: 20px;">
+            <div class="contt">
                 <label for="length">length in m</label><br>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <input type="number" id="length" name="length" placeholder="Enter the length of the space" min='0' value ='0' oninput="calculatearea()" required>
             </div>
-            <div style="width: 80%; padding: 20px;">
+            <div class="contt">
                 <label for="width">width in m</label><br>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <input type="number" id="width" name="width" placeholder="Enter the width of the space" min='0' value='0' oninput="calculatearea()" required>
             </div>
-            <div style="width: 80%; padding: 20px;">
+            <div class="contt">
                 <label for="height">height in m</label><br>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <input type="number" id="height" name="height" placeholder="Enter the height of the space" min='0' value='0' oninput= "calculatevolume()" required>
             </div>
-            <div style="width: 80%; padding: 20px;">
+            <div class="contt">
                 <label for="available_till">Available_Till</label><br>
-                <br style="content: ' '; margin: 2em;display: block;font-size: 24%;">
                 <input type="date" id="available_till" name="available_till" required>
             </div>
             <input type="hidden" id="area" name="area">
@@ -49,7 +60,8 @@
             <br>
             Your Current Location : <span id="location"></span>
             <br>
-            <input type="file" name="image" id="image">
+            <input type="file" name="image" id="image" onchange="imageviewer()" accept="image/png, image/gif, image/jpeg, image/jpg" onerror="alert('not suppported image type')" required>
+            <img src="/images/preview.png" alt="preview" width="200px" height="200px" id="preview">
             <div style="color: red;">
             <% if(error){ %> 
                 Server Error : <%= error %>
@@ -59,5 +71,5 @@
             <button type="submit">Create</button>
         </form>
     </div>
-    </div>
 </body>
+</html>

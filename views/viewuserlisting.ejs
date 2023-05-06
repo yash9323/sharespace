@@ -5,55 +5,136 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listing</title>
+    <link rel="stylesheet" href="/css/viewuserlisting.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <title>View Listing PageUser</title>
 </head>
 
 <body>
-    <a href="/home">Go to home</a>
-    <h1>Listing details</h1>
-    <div class="view_listing">
-        <div class="card-img" style="width: 200px; height: 200px;">
-            <img src="/images/<%= picture %>" alt="image" width="100%" height="100%">
+    <div class="nav">
+        <div class="logo">
+            <h1>Share Space</h1>
         </div>
-        <%= price %>dollar / month<br>
-            <%= address %><br>
-                <%= description %><br>
-                    <%= length %><br>
-                        <%= width %><br>
-                            <%= height %><br>
-                                <%= area %><br>
-                                    <%= volume %><br>
-                                        <%= lat %><br>
-                                            <%= lon %><br>
-                                                <br>
+        <div class="links">
+            <a href="/viewbookings">Your Bookings</a>
+            <a href="/mylistings">My Listings</a>
+            <a href="/newlisting">Add Listing</a>
+            <a href="/home">Home</a>
+        </div>
     </div>
-    <h1>visualize location on map</h1>
-    <h1>show booking history</h1>
-    <% let allow_available=true; %>
-        <% for (let booking of bookings){%>
-            <div class="booking">
-                <p>Booking Id - <%= booking._id.toString() %>
-                </p>
-                <p>From : <%= booking.start_date %>
-                </p>
-                <p>Booked Till: <%= booking.end_date %>
-                </p>
-                <p>Payment Received using :<%= booking.payment %>
-                </p>
+    <div class="viewlisting">
+        <h1>Listing details</h1>
+        <div class="view_listing">
+            <div class="card-img" style="width: 300px; height: 300px;">
+                <img src="/images/<%= picture %>" alt="image" width="100%" height="100%">
             </div>
-            <% if (booking.status === "ongoing" ){ %>
-                <% allow_available=false %>
-        <%}%>
-    <%}%>
+            <table>
+                <tr>
+                    <th>Price $</th>
+                    <th>
+                        <%= price %> dollars / month
+                    </th>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <th>
+                        <%= address %>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <th>
+                        <%= description %>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Length (in m)</th>
+                    <th>
+                        <%= length %>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Width (in m)</th>
+                    <th>
+                        <%= width %>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Height (in m)</th>
+                    <th>
+                        <%= height %>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Area (in m squared)</th>
+                    <th>
+                        <%= area %>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Volume (in m cubed)</th>
+                    <th>
+                        <%= volume %>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Latitude</th>
+                    <th>
+                        <%= lat %>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Longitude</th>
+                    <th>
+                        <%= lon %>
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <h1>show booking history</h1>
+            <% let allow_available=true; %>
+                <% for (let booking of bookings){%>
+                    <div class="booking">
+                        <p>Booking Id - <%= booking._id.toString() %>
+                        </p>
+                        <p>From : <%= booking.start_date %>
+                        </p>
+                        <p>Booked Till: <%= booking.end_date %>
+                        </p>
+                        <p>Payment Received using :<%= booking.payment %>
+                        </p>
+                        <p>
+                            Booking Status: <%=booking.status %>
+                        </p>
+                    </div>
+                    <% if (booking.status==="ongoing" ){ %>
+                        <% allow_available=false %>
+                            <%}%>
+                                <%}%>
+        </div>
+        <div class="settings">
+            <%if (allow_available===true){ %>
+                <h3><a href="/modifylisting/<%= _id.toString()%>" style="text-decoration: none;">Want to make some changes?</a></h3>
+                <% if(available===false){ %>
+                    <form action="/makeavailable/<%= _id.toString()%>" method="POST">
+                        <button type="submit">Make it available</button>
+                    </form>
+                    <%}%>
+                        <%}%>
+        </div>
+        <div class="commentsection">
+            <h2 class="h123">Comment Section</h2>
+            <div id="error" style="display: none;"></div>
+            <div class="comment" id="comments"></div>
+        </div>
+        <div class="reviewsection">
+            <h1 class="h234">Reviews Section</h1>
+            <div id="reviews"></div>
+            <input type="hidden" id="id" value="<%=_id%>">
+            <script src="/js/comments.js"></script>
+        </div>
     </div>
-    <%if (allow_available === true){ %>
-        <h3><a href="/modifylisting/<%= _id.toString()%>">Want to make some changes?</a></h3>
-        <% if(available === false){ %>
-            <form action="/makeavailable/<%= _id.toString()%>" method="POST">
-                <button type="submit">Make it available</button>
-            </form>
-        <%}%>
-    <%}%>
 </body>
 
 </html>

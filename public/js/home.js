@@ -6,6 +6,9 @@ function loadlistings() {
         type: "GET",
         data: "json",
         success: function (res) {
+            if(res.length === 0){
+                listingscontainer.innerText= "No Listings"
+            }
             for (let l of res) {
                 if (l.available) {
                     const listingref = document.createElement("a");
@@ -252,18 +255,13 @@ function searchbyaddress(){
     })
 }
 
-function listview(){
-    var mapcontainer = document.getElementById("mapview")
-    mapcontainer.style.display = "none"
-    var listviewcontainer = document.getElementById("listview")
-    listviewcontainer.style.display = ""
-}
-
-function mapview(){
-    var mapcontainer = document.getElementById("mapview")
-    mapcontainer.style.display = ""
-    var listviewcontainer = document.getElementById("listview")
-    listviewcontainer.style.display = "none"
-}
+function showpopup() {
+    document.getElementById('popup-form').style.display = 'flex';
+  }
+  
+  function hidePopup() {
+    document.getElementById('popup-form').style.display = 'none';
+  }
 
 window.onload = loadlistings
+hidePopup()
