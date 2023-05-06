@@ -1,25 +1,81 @@
-<h1> Booking Confirmation</h1>
-Booking details <br>
-<br>
-Payment made using :<%= booking_details.payment%>
-<br>
-From date :<%= booking_details.start_date%>
-<br>
-To date :<%= booking_details.end_date%>
-<br>
-<br><br>
-Space Booked 
-<br><br>
-<%= listing.address %><br>
-<%= listing.description %><br>
-<%= listing.length %><br>
-<%= listing.width %><br>
-<%= listing.height %><br>
-<%= listing.area %><br>
-<%= listing.volume %><br>
-<%= listing.lat %><br>
-<%= listing.lon %><br>
-<br><br>
+<!DOCTYPE html>
+<html lang="en">
 
-<a href="/home">Book Another Space</a>
-<a href="/viewbookings">View Space Reserved</a>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/confirmation.css">
+    <title>Confirmation</title>
+</head>
+
+<body>
+    <div class="nav">
+        <div class="logo">
+            <h1>Share Space</h1>
+        </div>
+        <div class="links">
+            <a href="/viewbookings">Your Bookings</a>
+            <a href="/mylistings">My Listings</a>
+            <a href="/newlisting">Add Listing</a>
+            <a href="/home">Home</a>
+        </div>
+    </div>
+    <div class="anotherdiv">
+        <h1>Happy Storing</h1>
+        <div class="one">
+            <h2> Booking Confirmation</h2>
+            Booking details 
+            <p>made using : <%= booking_details.payment%></p> 
+            <p>From date : <%= booking_details.start_date%></p>
+            <p>To date : <%= booking_details.end_date%></p>
+        </div>
+        <div class="two">
+            <h2>Space Booked</h2>
+                    <table>
+                        <tr>
+                            <th>Price $</th>
+                            <th><%= listing.price %> dollars / month</th>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <th><%= listing.address %></th>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <th><%= listing.description %></th>
+                        </tr>
+                        <tr>
+                            <th>Length (in m)</th>
+                            <th><%= listing.length %></th>
+                        </tr>
+                        <tr>
+                            <th>Width (in m)</th>
+                            <th><%= listing.width %></th>
+                        </tr>
+                        <tr>
+                            <th>Height (in m)</th>
+                            <th><%= listing.height %></th>
+                        </tr>
+                        <tr>
+                            <th>Area (in m squared)</th>
+                            <th><%= listing.area %></th>
+                        </tr>
+                        <tr>
+                            <th>Volume (in m cubed)</th>
+                            <th><%= listing.volume %></th>
+                        </tr>
+                        <tr>
+                            <th>Latitude</th>
+                            <th><%= listing.lat %></th>
+                        </tr>
+                        <tr>
+                            <th>Longitude</th>
+                            <th><%= listing.lon %></th>
+                        </tr>
+                    </table>
+        </div>         
+    </div>
+</body>
+
+</html>

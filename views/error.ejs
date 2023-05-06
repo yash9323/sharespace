@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/errorstyle.css">
     <title>Error</title>
 </head>
 <body>
-    <a href="/home">Go to home</a>
-<div id="error-container" style="color: red;">
-    Error: <%= error %>
+    <div class="nav">
+        <div class="logo">
+            <h1>Share Space</h1>
+        </div>
+        <div class="links">
+            <a href="/viewbookings">Your Bookings</a>
+            <a href="/mylistings">My Listings</a>
+            <a href="/newlisting">Add Listing</a>
+            <a href="/home">Home</a>
+        </div>
+    </div>
+<div id="error-container" class="error-container">
+    <h1><%= error %></h1>
 </div>
-<br>
-<a href="/home">Home</a>
-<br><a href="/mylistings">Your Listings</a>
-<br>
-<a href="/viewbookings">view your bookings</a>
 </body>
 </html>

@@ -116,6 +116,7 @@
         <div class="settings">
             <%if (allow_available===true){ %>
                 <h3><a href="/modifylisting/<%= _id.toString()%>" style="text-decoration: none;">Want to make some changes?</a></h3>
+                <br>
                 <% if(available===false){ %>
                     <form action="/makeavailable/<%= _id.toString()%>" method="POST">
                         <button type="submit">Make it available</button>

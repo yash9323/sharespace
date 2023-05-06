@@ -29,6 +29,8 @@ function loadlistings() {
                         </p>
                         <p class="text-body">area available: ${l.area}
                         </p>
+                        <p class="text-body">available till: ${l.available_till}
+                        </p>
                     </div>
                     <div class="card-footer">
                         <span class="text-title">$ ${l.price}</span>
