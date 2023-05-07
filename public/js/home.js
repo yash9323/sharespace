@@ -6,8 +6,8 @@ function loadlistings() {
         type: "GET",
         data: "json",
         success: function (res) {
-            if(res.length === 0){
-                listingscontainer.innerText= "No Listings"
+            if (res.length === 0) {
+                listingscontainer.innerText = "No Listings"
             }
             for (let l of res) {
                 if (l.available) {
@@ -44,7 +44,7 @@ function loadlistings() {
     })
 }
 
-function filterprice(){
+function filterprice() {
     var f = document.getElementById("priceRange").value
     var filterval = document.getElementById("filter_price")
     filterval.innerHTML = `Filtering Listings with price less than or equal to ${f}`
@@ -83,14 +83,14 @@ function filterprice(){
                     </div>  
                         `
                         listingscontainer.appendChild(listingref)
+                    }
                 }
             }
         }
-    }
     })
 }
 
-function filterarea(){
+function filterarea() {
     var f = document.getElementById("areaRange").value
     var filterval = document.getElementById("filter_area")
     filterval.innerHTML = `Filtering Listings with area less than or equal to ${f}`
@@ -129,14 +129,14 @@ function filterarea(){
                     </div>  
                         `
                         listingscontainer.appendChild(listingref)
+                    }
                 }
             }
         }
-    }
     })
 }
 
-function filtervolume(){
+function filtervolume() {
     var f = document.getElementById("volumeRange").value
     var filterval = document.getElementById("filter_volume")
     filterval.innerHTML = `Filtering Listings with volume less than or equal to ${f}`
@@ -175,41 +175,41 @@ function filtervolume(){
                     </div>  
                         `
                         listingscontainer.appendChild(listingref)
+                    }
                 }
             }
         }
-    }
     })
 }
 
-function showselectedfilter(){
+function showselectedfilter() {
     loadlistings()
     var filterval = document.getElementById("filter").value
     var pricefilterdiv = document.getElementById("pricefilterdiv")
     var areafilterdiv = document.getElementById("areafilterdiv")
     var volumefilterdiv = document.getElementById("volumefilterdiv")
-    if (filterval === "price"){
+    if (filterval === "price") {
         pricefilterdiv.style.display = "block"
         areafilterdiv.style.display = "none"
         volumefilterdiv.style.display = "none"
-    } 
-    if (filterval === "area"){
+    }
+    if (filterval === "area") {
         areafilterdiv.style.display = "block"
         volumefilterdiv.style.display = "none"
         pricefilterdiv.style.display = "none"
-    } 
-    if (filterval === "volume"){
+    }
+    if (filterval === "volume") {
         pricefilterdiv.style.display = "none"
         areafilterdiv.style.display = "none"
         volumefilterdiv.style.display = "block"
-    } 
+    }
 }
 
-function reset(){
+function reset() {
     window.location.reload()
 }
 
-function searchbyaddress(){
+function searchbyaddress() {
     var addresstosearch = document.getElementById("search").value
     if (addresstosearch === "") reset()
     var ddiv = document.getElementById("showsearchvalue")
@@ -250,20 +250,57 @@ function searchbyaddress(){
                     </div>  
                         `
                         listingscontainer.appendChild(listingref)
+                    }
                 }
             }
         }
-    }
     })
 }
 
 function showpopup() {
     document.getElementById('popup-form').style.display = 'flex';
-  }
-  
-  function hidePopup() {
-    document.getElementById('popup-form').style.display = 'none';
-  }
+}
 
+function hidePopup() {
+    document.getElementById('popup-form').style.display = 'none';
+}
+
+function rendermap() {
+    $.ajax({
+        url: "http://localhost:7777/getalllistings",
+        type: "GET",
+        data: "json",
+        success: function (res) {
+            map = L.map('map').setView([40.737579, -74.021385], 13);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            for (let l of res) {
+                if (l.available) {
+                    L.marker([Number(l.lat),Number(l.lon)]).addTo(map).bindPopup(l.address);
+                }
+            }
+        }
+    })
+    
+}
+
+function showmap() {
+    let midpage = document.getElementById('listviewdev')
+    midpage.style.display = "none"
+    document.getElementById('map').style.display = "block";
+    rendermap()
+}
+
+function listview() {
+    let m = document.getElementById('map')
+    m.style.display = "none";
+    map.remove();
+    let midpage = document.getElementById('listviewdev')
+    midpage.style.display = "flex"
+    loadlistings()
+}
+
+let map;
 window.onload = loadlistings
 hidePopup()

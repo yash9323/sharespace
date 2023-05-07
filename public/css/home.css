@@ -191,3 +191,31 @@ body {
   .popup-form .btn-cancel:hover {
     background-color: #aaa;
   }
+
+  #map { 
+    padding: 50px;
+    height: 400px; 
+  }
+
+  .switcher{
+    margin-top: 40px;
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .switcher button{
+    width: 150px;
+    border-radius: 40px;
+    height: 70px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: bolder;
+  }
+
+  .switcher button:hover{
+    color: white;
+    background: black;
+  }

@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="/css/home.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="/js/home.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
     <title>Home Page</title>
 </head>
 
@@ -57,11 +63,16 @@
                 <p id="filter_volume"></p>
             </div>
         </div>
-        <div class="midpage">
+        <div class="switcher">
+            <button id="viewswitcher" onclick="showmap()">Map View</button>
+            <button id="viewswitcher" onclick="listview()">List View</button>
+        </div>
+        <div class="midpage" id="listviewdev">
             <div class="abc"><h1>AD Banner 1</h1></div>
             <div class="listings" id="listings"></div>
             <div class="abc"><h1>AD Banner2</h1></div>
         </div>
+        <div id="map" style="display: none;"></div>
         <div id="popup-form" class="popup-form">
             <form action="/logout?_method=DELETE" method="POST">
                 <h2>Click here to logout</h2>
