@@ -1,4 +1,5 @@
 import users from './config/mongoCollections.js';
+import { ObjectId } from 'mongodb';
 
 export function fnamechecker(fname) {
     if (fname === undefined) throw "Error: First Name not passed";
@@ -251,4 +252,9 @@ export function paymentchecker(payment){
     if (payment === "zelle") return
     if (payment === "cash") return
     throw "Error : error processing the payment mode! can only be the 4 types specified!"
+}
+
+export function objectidchecker(id){
+    if (id === undefined) throw "Error: id was not passed";
+    if (!ObjectId.isValid(id)) throw "Error: The Object Id is Invalid";
 }

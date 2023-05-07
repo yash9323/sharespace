@@ -1,6 +1,6 @@
-import { dbConnection, closeConnection } from '../config/mongoConnection.js';
-import listings from '../config/mongoListingCollections.js';
-import * as h from '../helpers.js';
+import { dbConnection, closeConnection } from '../../config/mongoConnection.js';
+import listings from '../../config/mongoListingCollections.js';
+import * as h from '../../helpers.js';
 
 export default async function main(ob) {
     h.addresscheker(ob.address)

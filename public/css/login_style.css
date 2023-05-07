@@ -1,13 +1,15 @@
-html{
+html {
     height: 100%;
 }
-body{
+
+body {
     padding: 0;
     margin: 0;
     font-family: sans-serif;
-    background: linear-gradient(black,blue);
+    background: linear-gradient(black, blue);
 }
-.logo{
+
+.logo {
     font-size: 4vh;
     letter-spacing: 10px;
     color: white;
@@ -15,44 +17,59 @@ body{
     margin-bottom: 20px;
     padding-top: 30px;
 }
-.logo a{
+
+.logo a {
     text-decoration: none;
     color: white;
 }
-.clienterror{
+
+.logo h1 {
+    color: #767676;
+    background-color: #ffffff;
+}
+
+.clienterror {
     display: none;
     color: red;
     font-size: 18px;
     text-overflow: ellipsis;
     height: 20px;
 }
-.login-container{
+
+.login-container {
     position: absolute;
     left: 50%;
     top: 60%;
     width: 500px;
     padding: 40px;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     box-sizing: border-box;
     box-shadow: 0 20px 25px black;
     border-radius: 14px;
 }
-.login-container h1{
+
+.login-container h1 {
     margin: 0 0 40px;
     padding: 0;
-    color: white;
+    color: #767676;
+    background-color: #ffffff;
     text-align: center;
 }
-.login-container a{
+
+.login-container a {
     margin-top: 20px;
-    color: white;
+
+    color: #767676;
+    background-color: #ffffff;
 }
-.input-container{
+
+.input-container {
     position: relative;
     padding-top: 20px;
     padding-bottom: 10px;
 }
-.input-container input{
+
+.input-container input {
     width: 100%;
     padding: 20px 0;
     font-size: 16px;
@@ -62,18 +79,22 @@ body{
     outline: none;
     background: transparent;
 }
-::placeholder{
+
+::placeholder {
     color: white;
     opacity: 0.4;
 }
-.input-container label{
-    padding:12px 0;
+
+.input-container label {
+    padding: 12px 0;
     font-size: 20px;
-    color: white;
+    color: #767676;
+    background-color: #ffffff;
     pointer-events: none;
     transition: 2s;
 }
-.login-container button{
+
+.login-container button {
     margin-top: 20px;
     width: 150px;
     height: 40px;
@@ -82,10 +103,12 @@ body{
     font-size: 15px;
     margin-bottom: 20px;
 }
+
 button {
     transition-duration: 0.5s;
 }
-.login-container button:hover{
+
+.login-container button:hover {
     background-color: black;
     color: white;
 }

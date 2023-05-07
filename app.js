@@ -5,31 +5,31 @@ import dotenv from 'dotenv';
 import passport from 'passport';
 import initializepassport from './passport_config.js';
 import session from 'express-session';
-import add_user from './data_handler/create_user.js';
 import bcrypt from 'bcrypt';
-import users from './data_handler/get_users.js';
-import create_listing from './data_handler/create_listing.js'
-import get_listings from './data_handler/get_listings.js'
-import get_listing from './data_handler/get_listing.js'
-import add_booking from './data_handler/add_booking.js'
 import { ObjectId } from 'mongodb';
-import change_available from './data_handler/change_available.js'
-import get_booking from './data_handler/get_booking.js'
-import get_bookings_userid from './data_handler/get_bookings_userid.js'
-import get_listings_userid from './data_handler/get_listings_userid.js'
-import get_bookings_owned from './data_handler/get_bookings_owned.js'
-import get_user_byid from './data_handler/get_user_byid.js';
-import modify_listing from './data_handler/modify_listing.js';
-import delete_listing from './data_handler/delete_listing.js';
 import multer from 'multer';
-import get_all_bookings_on_listingid from './data_handler/get_all_bookings_on_listingid.js'
-import change_available_to_true from './data_handler/change_available_to_true.js'
-import get_bookings_sorted from './data_handler/get_bookings_sorted.js'
-import get_comments_for_listing from './data_handler/get_comments_for_listing.js'
-import post_comment_to_listing from './data_handler/post_comment_to_listing.js'
 import * as h from './helpers.js';
-import post_review from './data_handler/post_review.js';
-import get_reviews_for_listing from './data_handler/get_reviews_for_listing.js'
+import add_user from './data_handler/users data functions/create_user.js';
+import users_get from './data_handler/users data functions/get_users.js';
+import get_user_byid from './data_handler/users data functions/get_user_byid.js';
+import create_listing from './data_handler/listing data functions/create_listing.js'
+import get_listings from './data_handler/listing data functions/get_listings.js'
+import get_listing from './data_handler/listing data functions/get_listing.js'
+import add_booking from './data_handler/bookings data functions/add_booking.js'
+import change_available from './data_handler/listing data functions/change_available.js'
+import get_booking from './data_handler/bookings data functions/get_booking.js'
+import get_bookings_userid from './data_handler/bookings data functions/get_bookings_userid.js'
+import get_listings_userid from './data_handler/listing data functions/get_listings_userid.js'
+import get_bookings_owned from './data_handler/bookings data functions/get_bookings_owned.js'
+import modify_listing from './data_handler/listing data functions/modify_listing.js';
+import delete_listing from './data_handler/listing data functions/delete_listing.js';
+import get_all_bookings_on_listingid from './data_handler/bookings data functions/get_all_bookings_on_listingid.js'
+import change_available_to_true from './data_handler/listing data functions/change_available_to_true.js'
+import get_bookings_sorted from './data_handler/bookings data functions/get_bookings_sorted.js'
+import get_comments_for_listing from './data_handler/comment data functions/get_comments_for_listing.js'
+import post_comment_to_listing from './data_handler/comment data functions/post_comment_to_listing.js'
+import post_review from './data_handler/review data functions/post_review.js';
+import get_reviews_for_listing from './data_handler/review data functions/get_reviews_for_listing.js';
 
 dotenv.config();
 
@@ -50,6 +50,7 @@ const multerFilter = (req, file, cb) => {
     else cb(new Error('Please upload only a JPG or PNG file'), false);
 };
 
+let users;
 const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
 const app = express();
 app.set('view-engine', 'ejs');
@@ -64,6 +65,11 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+async function refresh_users(){
+    users = await users_get()
+}
+await refresh_users()
 
 initializepassport(
     passport,
@@ -330,6 +336,7 @@ app.post('/register', notauthenticatedrequest, async (req, res) => {
         };
         let ack = await add_user(user_obj);
         if (ack === null) throw "Error : Internal Server Error!"
+        await refresh_users()
         return res.redirect("/login")
     }
     catch (e) {
@@ -434,7 +441,7 @@ app.post('/bookbooking/:id', authenticatedrequest, async (req, res) => {
             payment: req.body.payment,
             status: "ongoing"
         }
-        let su = await add_booking(o)
+        let su = await add_booking(o,d.available_till)
         if (su === null) throw "Error: We had trouble booking your listing ! try again"
         let dd = await change_available(obb, o.end_date)
         return res.redirect("/success/" + new ObjectId(su.insertedId))
@@ -500,11 +507,6 @@ app.delete('/logout', authenticatedrequest, (req, res) => {
             }
         })
     return res.redirect('/')
-})
-
-// Route to handle about page return about ejs no authentication needed - done
-app.get("/about", (req, res) => {
-    return res.render('about.ejs')
 })
 
 // route for landing - done 

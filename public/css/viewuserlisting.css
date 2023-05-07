@@ -63,7 +63,8 @@ table, tr,th {
     padding-top: 20px;
 }
 .settings h3 a{
-    color: white;
+    background: #000000;
+    color: #3838f3;
     border: 4px solid black;
     padding: 20px;
 }

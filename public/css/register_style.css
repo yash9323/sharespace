@@ -20,13 +20,17 @@ body{
     text-decoration: none;
     color: white;
 }
+.logo h1 {
+    color: #767676;
+    background-color: #ffffff;
+}
 .register_container{
     position:absolute;
     left: 50%;
     top: 60%;
     width: 550px;
     padding: 40px;
-    height: 80vh;
+    height: max-content;
     transform: translate(-50%,-50%);
     box-sizing: border-box;
     box-shadow: 0 20px 25px black;
@@ -35,12 +39,14 @@ body{
 .register_container h1{
     margin: 0 0 40px;
     padding: 0;
-    color: white;
+    color: #767676;
+    background-color: #ffffff;
     text-align: center;
 }
 .register_container a{
     margin-top: 20px;
-    color: white;
+    color: #767676;
+    background-color: #ffffff;
 }
 .cont{
     position: relative;
@@ -64,7 +70,8 @@ body{
 .cont label{
     padding:12px 0;
     font-size: 16px;
-    color: white;
+    color: #767676;
+    background-color: #ffffff;
     pointer-events: none;
     transition: 2s;
 }

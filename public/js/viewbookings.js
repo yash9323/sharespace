@@ -32,6 +32,9 @@ function loadbookings() {
                 <p>Status of Booking : ${l.status}</p>
                 <p>Space Booked : ${l.listing_details.address}</p>
                 <div class="makecomment">
+                <label for="review">
+                Post your comment here :
+                </label>
                 <input type="text" id="review" placeholder="Your Review here">
                 <select id="rate">
                 <option value="1">1</option>

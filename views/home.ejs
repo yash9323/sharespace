@@ -28,6 +28,9 @@
     </div>
     <div class="listview">
         <div class="filterpart">
+            <label for="search">
+                Search Address here
+            </label>
             <input type="text" class="searcher" name="search" id="search" oninput="searchbyaddress()" placeholder="search for a address">
             <p id="showsearchvalue" style="display: none;"></p>
             <div id="filteroptions">
@@ -39,17 +42,17 @@
                 <button type="submit" id="reset" onclick="reset()">Reset Filtering</button>
             </div>
             <div class="div1" id="pricefilterdiv" style="display: none;">
-                <h3>Price Filtering</h3>
+                <h2>Price Filtering</h2>
                 <input type="range" min="5" max="50" class="slider" id="priceRange" oninput="filterprice()">
                 <p id="filter_price"></p>
             </div>
             <div class="div2" id="areafilterdiv" style="display: none;">
-                <h3>Area Filtering</h3>
+                <h2>Area Filtering</h2>
                 <input type="range" min="10" max="700" class="slider" id="areaRange" oninput="filterarea()">
                 <p id="filter_area"></p>
             </div>
             <div class="div3" id="volumefilterdiv" style="display: none;">
-                <h3>Volume Filtering</h3>
+                <h2>Volume Filtering</h2>
                 <input type="range" min="10" max="2000" class="slider" id="volumeRange" oninput="filtervolume()">
                 <p id="filter_volume"></p>
             </div>

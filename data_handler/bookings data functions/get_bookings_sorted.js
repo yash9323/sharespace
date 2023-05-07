@@ -1,5 +1,5 @@
-import {dbConnection,closeConnection}from '../config/mongoConnection.js';
-import bookings from '../config/mongoBookingsCollections.js';
+import {dbConnection,closeConnection}from '../../config/mongoConnection.js';
+import bookings from '../../config/mongoBookingsCollections.js';
 
 export default async function main(){
     const db = await dbConnection();

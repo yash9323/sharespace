@@ -1,6 +1,6 @@
-import { dbConnection, closeConnection } from '../config/mongoConnection.js';
-import users from '../config/mongoCollections.js';
-import * as h from '../helpers.js';
+import { dbConnection, closeConnection } from '../../config/mongoConnection.js';
+import users from '../../config/mongoCollections.js';
+import * as h from '../../helpers.js';
 
 export default async function main(ob) {
     h.fnamechecker(ob.first_name)

@@ -1,9 +1,9 @@
 // import dependencies
 import { dbConnection, closeConnection } from './config/mongoConnection.js';
-import create_user from './data_handler/create_user.js';
-import create_listing from './data_handler/create_listing.js';
-import add_booking from './data_handler/add_booking.js';
-import change_available from './data_handler/change_available.js';
+import create_user from './data_handler/users data functions/create_user.js';
+import create_listing from './data_handler/listing data functions/create_listing.js';
+import add_booking_modded from './data_handler/bookings data functions/add_booking_modded.js';
+import change_available from './data_handler/listing data functions/change_available.js';
 
 console.log("Dropping the old database")
 const db = await dbConnection();
@@ -171,7 +171,7 @@ const bookings = [
 ]
 
 for (let booking of bookings){
-    let su = await add_booking(booking)
+    let su = await add_booking_modded(booking)
     let dd = await change_available(booking.listing_id, booking.end_date)
 }
 
