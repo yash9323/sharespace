@@ -24,6 +24,7 @@ form.addEventListener('submit', (event) => {
         if (email.value === undefined) throw "Error: Email Adress not passed";
         if (typeof email.value !== "string") throw "Error: Email Adress passed is not String!"
         if (email.value.trim().length === 0) throw "Error: Email Adress passed only has empty spaces"
+        if (/<|>/.test(email.value)) throw "No injection of tags allowed!"
         email.value = email.value.toLowerCase()
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) throw "Error: Incorrect format of Email Address"
         if (password.value === undefined) throw "Error: password not passed";
