@@ -5,11 +5,11 @@ Some Screenshots : <br />
 ![image](https://github.com/yash9323/sharespace/assets/50073863/168870e2-8e2f-4120-813e-b8e8122c06d8)
 
 <br />
-To Run this project :
-1.	Open your terminal at this project 
-2.	Now “npm i” or “npm install” to install all dependencies
-3.	Now run your seed file to run seed use this command “npm run seed”
-4.	Now to run the project use command “npm start”
+To Run this project :<br />
+1.	Open your terminal at this project <br />
+2.	Now “npm i” or “npm install” to install all dependencies<br />
+3.	Now run your seed file to run seed use this command “npm run seed”<br />
+4.	Now to run the project use command “npm start”<br />
 
 Dummy Users to access Features :<br />
 Temp user 1 -<br />
