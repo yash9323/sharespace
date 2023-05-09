@@ -5,10 +5,10 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "seed": "node seed.js"
   },
-  "author": "yash bhutoria",
+  "author": "yash bhutoria 20011061",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
