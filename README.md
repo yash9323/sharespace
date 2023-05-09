@@ -10,7 +10,7 @@ To Run this project :<br />
 2.	Now “npm i” or “npm install” to install all dependencies<br />
 3.	Now run your seed file to run seed use this command “npm run seed”<br />
 4.	Now to run the project use command “npm start”<br />
-
+<br />
 Dummy Users to access Features :<br />
 Temp user 1 -<br />
 email - yash@sharespace.com<br />
