@@ -1,5 +1,9 @@
 # CS-546-ShareSpace
 Share Space - One Stop to All your Storing Solutions <br />
+Some Screenshots : <br />
+![image](https://github.com/yash9323/sharespace/assets/50073863/cd721b0d-d381-489e-ab35-d42452a31520)
+![image](https://github.com/yash9323/sharespace/assets/50073863/168870e2-8e2f-4120-813e-b8e8122c06d8)
+
 <br />
 To Run this project :
 1.	Open your terminal at this project 
@@ -54,7 +58,3 @@ Get : <br />
 <br />
 Post : <br />
 ![image](https://github.com/yash9323/sharespace/assets/50073863/4c0b5e7f-dd10-45ae-a3e4-4246e92c7e86)
-
-
-
-
