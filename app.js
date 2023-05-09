@@ -111,6 +111,10 @@ app.post("/postreview", authenticatedrequest, async (req, res) => {
         let booking = await get_booking(ob.booking_id)
         if (booking === null) throw "Error: There is no such booking that you are trying to post reviews for";
         if (booking.bookedby_user_id.toString() !== ob.postedby_user.toString())  throw "Error: You are not authorized to post a review because you have not booked it!"
+        if (booking.status === "ongoing") throw "Error: You cannot post a review since the booking is ongoing"
+        if (booking.status === "expired"){
+            if (booking.reviewed === "yes") throw "Error: You cannot post a review if you have already reviewed it!"
+        }
         if (ob.postedby_user.toString() !== req.user._id.toString()) throw "Error: You are not authorized to post a review! you are feeding wrong information!";
         let ack = await post_review(ob)
         if (ack === null) throw 'Error: There was a issue while posting a review! internal sever error!'

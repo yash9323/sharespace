@@ -10,7 +10,9 @@ export default async function main(){
         let end = new Date(l.end_date)
         let today = new Date()
         if (today >= end){
-            let x = await bookingcollection.findOneAndUpdate({_id:l._id},{$set:{status:"expired",reviewed:"na"}})
+            if(l.status === "ongoing"){
+                let x = await bookingcollection.findOneAndUpdate({_id:l._id},{$set:{status:"expired",reviewed:"na"}})
+            }
         }
     }
     return undefined;
